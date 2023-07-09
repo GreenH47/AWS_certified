@@ -134,6 +134,16 @@
                 "unlinkedCollapsed": true
               }
             }
+          },
+          {
+            "id": "7835b3d726988e3b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md"
+              }
+            }
           }
         ]
       }
