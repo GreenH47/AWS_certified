@@ -13,34 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "b85cff0349351591",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
                 "file": "saa_c03.md",
                 "mode": "source",
                 "source": false
               }
             }
-          },
-          {
-            "id": "46d8cd5165fd5078",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +77,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "bb6e2c06669023ce",
@@ -178,12 +158,23 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "b85cff0349351591",
+  "active": "7a5270ff51a5d71f",
   "lastOpenFiles": [
-    "mockexam/AWS_Certified_Solutions_Architect_Associate_SAA-C03_Slides_Tutorials_Dojo.pdf",
-    "mockexam/Unconfirmed 478627.crdownload",
-    "README.md",
+    "mockexam/AWS Certified Solutions Architect Slides v22.pdf",
+    "mockexam/Unconfirmed 192974.crdownload",
+    "mockexam/AWS-Certified-Solutions-Architect-Associate_Sample-Questions.pdf",
+    "mockexam/Unconfirmed 780800.crdownload",
+    "mockexam/2023+SAA+C03+256题+精简版+英文题++无答案版.pdf",
+    "mockexam/2023+AWS+SAA+256题+精简版+中英文.pdf",
     "saa_c03.md",
+    "mockexam/code_v2023-04-07/ssm/cli.sh",
+    "mockexam/code_v2023-04-07/ssm/handler.py",
+    "mockexam/code_v2023-04-07/ssm",
+    "mockexam/code_v2023-04-07/sqs/sqs.sh",
+    "mockexam/code_v2023-04-07/sqs",
+    "mockexam/code_v2023-04-07/s3/coffee.jpg",
+    "mockexam/code_v2023-04-07/s3/beach.jpg",
+    "README.md",
     "img/README-20230621-3.png",
     "img/README-20230621-2.png",
     "img/README-20230621-1.png",
@@ -194,9 +185,6 @@
     "img/fit5171-20230618-7.png",
     "img/fit5171-20230618-6.png",
     "img/fit5171-20230618-5.png",
-    "img/fit5171-20230618-4.png",
-    "img/fit5171-20230618-3.png",
-    "googleb19ee7ecc0ffed43.html",
     "course_notes/fit5225_note.md",
     "course_notes/fit5046.md",
     "chat/230521_serverless,microservices,RESTFUL.md",
@@ -213,7 +201,6 @@
     "course_notes/fit5225.md",
     "Git/Git.md",
     "RackMultipart20230405-1-jtzm4j_html_8ab6d196b993af89.png.md",
-    "img/fit5171-20230404-28.png.~tmp",
     "course_notes/Rintro.md",
     "course_notes/fit5136.md",
     "course_notes/fit5125.md",
