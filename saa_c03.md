@@ -20,3 +20,5 @@ There are two types of questions on the exam:
 # IAM
 IAM = Identity and Access Management, Global service IAM = 身份和访问管理、全球服务  
 Users or Groups can be assigned JSON documents called policies In AWS you apply the least  privilege principle: don’t give more permissions than a user needs 在 AWS 中，您应用最小权限原则：不要授予超出用户需要的权限  
+## IAM Policies Structure
+![](img/saa_c03-20230712.png)  
