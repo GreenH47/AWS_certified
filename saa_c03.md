@@ -22,3 +22,21 @@ IAM = Identity and Access Management, Global service IAM = 身份和访问管理
 Users or Groups can be assigned JSON documents called policies In AWS you apply the least  privilege principle: don’t give more permissions than a user needs 在 AWS 中，您应用最小权限原则：不要授予超出用户需要的权限  
 ## IAM Policies Structure
 ![](img/saa_c03-20230712.png)  
+• Users: mapped to a physical user, has a password for AWS Console  
+• Groups: contains users only  
+• Policies: JSON document that outlines permissions for users or groups  
+• Roles: for EC2 instances or AWS services  
+• Security: MFA + Password Policy  
+• AWS CLI: manage your AWS services using the command-line  
+• AWS SDK: manage your AWS services using a programming language  
+• Access Keys: access AWS using the CLI or SDK  
+• Audit: IAM Credential Reports & IAM Access Advisor  
+
+# EC2 Elastic Compute Cloud
+EC2 = Elastic Compute Cloud = Infrastructure as a Service It mainly consists in the capability of :  EC2 = 弹性计算云 = 基础设施即服务 • 它主要包括以下功能：
+• Renting virtual machines租用虚拟机 (EC2)  
+• Storing data on virtual drives在虚拟驱动器上存储数据 (EBS)  
+• Distributing load across machines跨机器分配负载 (ELB)  
+• Scaling the services using an auto-scaling group使用自动缩放组缩放服务 (ASG)  
+
+[Compute – Amazon EC2 Instance Types – AWS](https://aws.amazon.com/ec2/instance-types/)  
