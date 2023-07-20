@@ -42,12 +42,14 @@ EC2 = Elastic Compute Cloud = Infrastructure as a Service It mainly consists in 
 [Compute – Amazon EC2 Instance Types – AWS](https://aws.amazon.com/ec2/instance-types/)  
 
 ## Security Groups
+Inbound and Outbound Rules: Security groups enable you to define rules to control inbound traffic (incoming connections) and outbound traffic (outgoing connections) for your EC2 instances. Each rule specifies a protocol, port range, and source or destination IP addresses. 入站和出站规则：安全组使您能够定义规则来控制 EC2 实例的入站流量（传入连接）和出站流量（传出连接）。每个规则指定协议、端口范围以及源或目标 IP 地址。 
 22 = SSH (Secure Shell) - log into a Linux instance
 • 21 = FTP (File Transfer Protocol) – upload files into a file share
 • 22 = SFTP (Secure File Transfer Protocol) – upload files using SSH
 • 80 = HTTP – access unsecured websites
 • 443 = HTTPS – access secured websites
 • 3389 = RDP (Remote Desktop Protocol) – log into a Windows instance  
+The rules are evaluated in a sequential manner. If a rule matches the incoming network traffic, then the action specified in that rule (e.g., allow or deny) will be applied. If no rule matches, the traffic will be denied by default.  规则按顺序进行评估。如果规则与传入的网络流量匹配，则将应用该规则中指定的操作（例如，允许或拒绝）。如果没有匹配的规则，则默认情况下将拒绝流量。 
 
 ## Placement Groups
 In AWS, a Placement Group is a logical grouping of EC2 instances within a single Availability Zone. It allows you to influence the placement of instances to provide better performance or isolation.  在 AWS 中，置放群组是单个可用区内 EC2 实例的逻辑分组。它允许您影响实例的位置，以提供更好的性能或隔离  
@@ -90,3 +92,22 @@ AMI are a customization of an EC2 instance
 • You add your own software, configuration, operating system, monitoring...  
 • Faster boot / configuration time because all your software is pre-packaged  
 AMI 是 EC2 实例的定制 • 您添加自己的软件、配置、操作系统、监控... • 由于所有软件均已预先打包，因此启动/配置时间更快
+
+## Multi-Attach
+Attach the same EBS volume to multiple EC2  instances in the same AZ  Each instance has full read & write permissions to the high-performance volume 将相同的 EBS 卷附加到同一可用区中的多个 EC2 实例 • 每个实例都对高性能卷具有完整的读写权限 Up to 16 EC2 Instances at a time 一次最多 16 个 EC2 实例  
+
+## EFS – Elastic File System  
+AWS EFS (Amazon Elastic File System) is a fully managed, scalable, and highly available file storage service provided by Amazon Web Services (AWS). It is designed to provide shared file storage for EC2 instances and other AWS services.  AWS EFS（Amazon Elastic File System）是由 Amazon Web Services （AWS） 提供的完全托管、可扩展且高度可用的文件存储服务。它旨在为 EC2 实例和其他 AWS 服务提供共享文件存储。 
+The main function of AWS EFS is to provide a fully managed and scalable file system that can be accessed from multiple EC2 instances concurrently. It allows multiple instances to read and write data to the file system concurrently, making it suitable for use cases that require shared access to data.  AWS EFS 的主要功能是提供可从多个 EC2 实例同时访问的完全托管且可扩展的文件系统。它允许多个实例同时向文件系统读取和写入数据，使其适用于需要共享数据访问的使用案例。
+
+## comparison between EBS and EFS  
+
+|Feature 特征|EBS (Elastic Block Store)  <br>EBS（弹性块存储）|EFS (Elastic File System)  <br>EFS（弹性文件系统）|
+|---|---|---|
+|Storage Type 存储类型|Block-level storage 块级存储|File-level storage 文件级存储|
+|Access Method|Mounted as block devices to EC2 instances  <br>作为块储存设备挂载到 EC2 实例|Accessed via NFS protocol  <br>通过 NFS 协议访问|
+|Shared Access 共享访问|Not designed for shared access  <br>不是为共享访问而设计的|Multiple instances can access concurrently  <br>多个实例可以同时访问|
+|Use Cases 使用案例|Boot volumes, database storage, etc.  <br>引导卷、数据库存储等|Shared web hosting, content management systems, etc.  <br>共享虚拟主机、内容管理系统等。|
+|Scalability 可扩展性|Resizable but may require downtime  <br>可调整大小，但可能需要停机|Automatically scales without downtime  <br>自动扩展，无需停机|
+|Availability 可用性|Redundancy within single availability zone  <br>单个可用区内的冗余|Replication across multiple availability zones  <br>跨多个可用区进行复制|
+|Durability 耐久性|Snapshots and replication for backups  <br>用于备份的快照和复制|Replication for high durability  <br>复制以实现高持久性|
