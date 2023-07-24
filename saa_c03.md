@@ -178,3 +178,85 @@ The goal of an Auto Scaling Group (ASG) is to:
 Auto Scaling 组 (ASG) 的目标是： • 横向扩展（添加 EC2 实例）以匹配增加的负载 • 缩减（删除 EC2 实例）以匹配减少的负载 • 确保运行的 EC2 实例数量达到最小和最大数量 • 自动向负载均衡器注册新实例 • 重新创建 EC2 实例，以防前一个实例终止（例如：运行状况不佳）
 ![](img/saa_c03-20230723-1.png)  
 
+# Amazon RDS
+Amazon RDS (Relational Database Service) is a managed database service provided by Amazon Web Services (AWS). It makes it easy to set up, operate, and scale relational databases in the cloud.  
+Amazon RDS（关系数据库服务）是由 Amazon Web Services （AWS） 提供的托管数据库服务。它使在云中设置、操作和扩展关系数据库变得容易。
+
+With Amazon RDS, you can deploy and manage popular relational database engines such as Amazon Aurora, MySQL, PostgreSQL, Oracle Database, and Microsoft SQL Server, without the need to manage underlying database infrastructure. Key features and benefits of Amazon RDS include:  
+借助 Amazon RDS，您可以部署和管理流行的关系数据库引擎，例如 Amazon Aurora、MySQL、PostgreSQL、Oracle Database 和 Microsoft SQL Server，而无需管理底层数据库基础设施。Amazon RDS 的主要功能和优势包括：
+## Auto Scaling
+Amazon RDS Auto Scaling works by monitoring the performance metrics of your RDS instances, such as CPU utilization, database connections, or storage usage. Based on your defined scaling policies, it can automatically scale the number of read replicas or increase/decrease the instance size (vertical scaling) to meet the application's performance requirements.  
+Amazon RDS Auto Scaling 的工作原理是监控 RDS 实例的性能指标，例如 CPU 利用率、数据库连接或存储使用情况。根据您定义的扩展策略，它可以自动扩展只读副本数量或增加/减少实例大小（垂直扩展）以满足应用程序的性能要求  
+## Read Replicas
+Read Replicas: Apart from Multi-AZ deployments, RDS also supports creating Read Replicas. Read Replicas are additional instances that replicate data from the primary database in an asynchronous manner. Read Replicas can be created in different AZs to distribute read traffic and improve performance. However, note that Read Replicas are not automatically promoted to a primary database in case of a failure like Multi-AZ deployments.
+只读副本：除了多可用区部署外，RDS 还支持创建只读副本。只读副本是以异步方式从主数据库复制数据的附加实例。可以在不同的可用区中创建只读副本，以分配读取流量并提高性能。但是，请注意，如果发生多可用区部署等故障，只读副本不会自动提升为主数据库。
+![](img/saa_c03-20230724.png)
+## From Single-AZ to Multi-AZ
+Create a new Multi-AZ RDS instance: From the Amazon RDS console, choose "Launch DB instance". Select the desired database engine, version, and instance specifications. In the "Multi-AZ deployment" section, choose the option to enable Multi-AZ. Configure other settings as per your requirements and launch the new Multi-AZ instance.
+创建新的多可用区 RDS 实例：从 Amazon RDS 控制台中选择“启动数据库实例”。选择所需的数据库引擎、版本和实例规格。在“多可用区部署”部分中，选择启用多可用区的选项。根据您的要求配置其他设置并启动新的多可用区实例
+
+## Amazon Aurora
+Aurora is a proprietary technology from AWS (not open sourced)• Postgres and MySQL are both supported as Aurora DB (that means your drivers will work as if Aurora was a Postgres or MySQL database) • Aurora is “AWS cloud optimized” and claims 5x performance improvement over MySQL on RDS, over 3x the performance of Postgres on RDS Aurora 是 AWS 的专有技术（非开源） • Postgres 和 MySQL 都作为 Aurora DB 支持（这意味着您的驱动程序将像 Aurora 是 Postgres 或 MySQL 数据库一样工作） • Aurora 是“AWS 云优化”，并声称比 RDS 上的 MySQL 性能提高了 5 倍，是 RDS 上的 Postgres 性能的 3 倍以上  
+
+## Amazon RDS Proxy
+Fully managed database proxy for RDS• Allows apps to pool and share DB connections established with the database • Improving database efficiency by reducing the stress on database resources (e.g., CPU, RAM) and minimize open connections (and timeouts) • Serverless, autoscaling, highly available (multi-AZ)  
+RDS 的完全托管数据库代理 • 允许应用程序汇集和共享与数据库建立的数据库连接 • 通过减少数据库资源（例如 CPU、RAM）的压力并最大限度地减少开放连接（和超时）来提高数据库效率 • 无服务器、自动扩展、高可用性（多可用区）
+
+## ElastiCache
+![](img/saa_c03-20230724-1.png)
+![](img/saa_c03-20230724-2.png)
+Yes, that's correct! When a user makes a read or update request, AWS can utilize the data stored in ElastiCache, if available, to serve the request faster and reduce the load on the underlying main database.  
+是的，没错！当用户发出读取或更新请求时，AWS 可以利用存储在 ElastiCache 中的数据（如果可用）更快地为请求提供服务，并减少底层主数据库的负载。
+
+Here's a general flow of how this caching process works with ElastiCache:  
+以下是此缓存过程如何与 ElastiCache 配合使用的一般流程：
+
+1. Read Request: 读取请求：
+    
+    - When a read request is received, the application first checks if the requested data is available in the ElastiCache cache.  
+        收到读取请求后，应用程序首先检查请求的数据在 ElastiCache 缓存中是否可用。
+    - If the data is present in the cache, it can be directly retrieved from ElastiCache, which provides low-latency access to the data. This eliminates the need to query the main database.  
+        如果数据存在于缓存中，则可以直接从 ElastiCache 中检索数据，从而提供对数据的低延迟访问。这样就无需查询主数据库。
+    - If the data is not available in the cache, the application retrieves it from the main database and stores it in the cache for subsequent requests.  
+        如果数据在缓存中不可用，应用程序将从主数据库中检索数据并将其存储在缓存中以供后续请求使用。
+2. Update Request: 更新请求：
+    
+    - When an update request is received, the application updates both the data in the cache and the main database to maintain consistency.  
+        收到更新请求时，应用程序会更新缓存中的数据和主数据库中的数据以保持一致性。
+    - The application first updates the data in the main database to ensure durability and data integrity.  
+        应用程序首先更新主数据库中的数据，以确保持久性和数据完整性。
+    - After the update, the application also updates the corresponding data in the ElastiCache cache or invalidates the cached entry, depending on the caching strategy being used.  
+        更新后，应用程序还会更新 ElastiCache 缓存中的相应数据或使缓存的条目失效，具体取决于所使用的缓存策略。
+    - On subsequent read requests, the updated data will be retrieved from the main database and cached in ElastiCache again, ensuring that the data in the cache stays up to date.  
+        在随后的读取请求中，将从主数据库中检索更新的数据并再次缓存在 ElastiCache 中，从而确保缓存中的数据保持最新。
+
+This caching mechanism helps alleviate the load on the main database by reducing the number of queries or computations required to serve read and update requests. By storing frequently accessed or computationally expensive data in the cache, applications can significantly improve response times and achieve better scalability.  
+此缓存机制通过减少为读取和更新请求提供服务所需的查询或计算数来帮助减轻主数据库上的负载。通过在缓存中存储频繁访问或计算成本高昂的数据，应用程序可以显著缩短响应时间并实现更好的可伸缩性。
+
+It's worth mentioning that the caching strategy and configuration may vary depending on the specific use case and requirements of your application. ElastiCache offers different caching strategies, such as Lazy Loading and Write-Through, which allow you to control how data is stored, retrieved, and synchronized between the cache and the main database.  
+值得一提的是，缓存策略和配置可能会有所不同，具体取决于应用程序的特定用例和要求。ElastiCache 提供了不同的缓存策略，例如延迟加载和直写，它们允许您控制缓存和主数据库之间的数据存储、检索和同步方式。
+
+By employing ElastiCache as a caching layer, you can optimize the performance of your application while maintaining consistency and data integrity across the cache and the main database.  
+通过使用 ElastiCache 作为缓存层，您可以优化应用程序的性能，同时保持缓存和主数据库的一致性和数据完整性。
+
+# Route 53
+## DNS
+Domain Name System which translates the human friendly hostnames into the machine IP addresses• www.google.com => 172.217.18.36 • DNS is the backbone of the Internet • DNS uses hierarchical naming structure 域名系统，将人类友好的主机名转换为机器 IP 地址 • www.google.com => 172.217.18.36 • DNS 是互联网的支柱 • DNS 使用分层命名结构  
+  
+Domain Registrar: Amazon Route 53, GoDaddy, ...  
+• DNS Records: A, AAAA, CNAME, NS, ...  
+• Zone File: contains DNS records  
+• Name Server: resolves DNS queries (Authoritative or Non-Authoritative)  
+• Top Level Domain (TLD): .com, .us, .in, .gov, .org, ...  
+• Second Level Domain (SLD): amazon.com, google.com
+![](img/saa_c03-20230724-3.png)  
+![](img/saa_c03-20230724-4.png)  
+## Amazon Route 53
+Route 53 offers a reliable and scalable DNS infrastructure that is essential for modern web applications and services. It is widely used for domain management, DNS routing, and traffic distribution, ensuring high availability, performance, and security for your applications and websites.  
+Route 53 提供可靠且可扩展的 DNS 基础设施，这对于现代 Web 应用程序和服务至关重要。它广泛用于域管理、DNS 路由和流量分发，确保您的应用程序和网站的高可用性、高性能和安全性。
+## Hosted Zones
+A container for records that define how to route traffic to a domain and its subdomains  
+• Public Hosted Zones – contains records that specify how to route traffic on the Internet (public domain names) application1.mypublicdomain.com  
+• Private Hosted Zones – contain records that specify how you route traffic within one or more VPCs (private domain names) application1.company.interna  
+定义如何将流量路由到域及其子域的记录容器 • 公共托管区域 – 包含指定如何在 Internet（公共域名）application1.mypublicdomain.com 上路由流量的记录 • 私有托管区域 – 包含指定如何在一个或多个 VPC（私有域名）application1.company.interna 内路由流量的记录  
+![](img/saa_c03-20230724-5.png)  
