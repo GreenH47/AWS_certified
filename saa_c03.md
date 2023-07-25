@@ -260,3 +260,43 @@ A container for records that define how to route traffic to a domain and its sub
 • Private Hosted Zones – contain records that specify how you route traffic within one or more VPCs (private domain names) application1.company.interna  
 定义如何将流量路由到域及其子域的记录容器 • 公共托管区域 – 包含指定如何在 Internet（公共域名）application1.mypublicdomain.com 上路由流量的记录 • 私有托管区域 – 包含指定如何在一个或多个 VPC（私有域名）application1.company.interna 内路由流量的记录  
 ![](img/saa_c03-20230724-5.png)  
+## Alias Records
+
+# Solutions Architecture
+## Stateless Web App
+Scaling horizontally, with a load balancer，  
+Scaling horizontally, with an auto-scaling group  
+Making our app multi-AZ  
+![](img/saa_c03-20230725.png)
+## Stateful Web App
+Stateful applications require the storage and management of session-related data throughout the user's session or interaction, ensuring that the state is preserved even if the backend instances change. This often involves storing session data in a shared database or cache, replicating the data across instances, and synchronizing updates to maintain consistency.  
+有状态应用程序需要在整个用户的会话或交互过程中存储和管理与会话相关的数据，以确保即使后端实例发生更改，也能保留状态。这通常涉及将会话数据存储在共享数据库或缓存中、跨实例复制数据以及同步更新以保持一致性。  
+1. Introduce Stickiness (Session Affinity) -> storage user data and stay consistence (. The user's session or conversation may be lost in this transition)  
+2. Introduce User Cookies -> allow multi instance know user stage (HTTP requests are heavier and Security risk)   
+3. Send session_id in Web Cookies and Store / retrieve session data 
+4. 
+![](img/saa_c03-20230725-2.png)  
+![](img/saa_c03-20230725-3.png)  
+ ELB sticky sessions
+• Web clients for storing cookies and making our web app stateless
+• ElastiCache
+• For storing sessions (alternative: DynamoDB)
+• For caching data from RDS
+• Multi AZ
+• RDS
+• For storing user data
+• Read replicas for scaling reads
+• Multi AZ for disaster recovery
+• Tight Security with security groups referencing each other
+
+## scalable Stateful Web App  
+![](img/saa_c03-20230725-4.png)  
+![](img/saa_c03-20230725-5.png)  
+Aurora Database to have easy Multi-AZ and Read-Replicas
+• Storing data in EBS (single instance application)
+• Vs Storing data in EFS (distributed application)  
+
+# CloudFront
+Amazon CloudFront is a content delivery network (CDN) provided by AWS. CDN is a globally distributed network of servers that caches and delivers content from the nearest edge location to the end users, reducing latency and improving the performance of accessing content.  
+Amazon CloudFront 是由 AWS 提供的内容交付网络 （CDN）。CDN 是一个全球分布的服务器网络，可缓存内容并将其从最近的边缘站点交付给最终用户，从而减少延迟并提高访问内容的性能。
+
