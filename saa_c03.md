@@ -113,7 +113,19 @@ The main function of AWS EFS is to provide a fully managed and scalable file sys
 |Durability 耐久性|Snapshots and replication for backups  <br>用于备份的快照和复制|Replication for high durability  <br>复制以实现高持久性|
 ![](img/saa_c03-20230722.png)  
 ![](img/saa_c03-20230722-1.png)  
+## comparison between efs and s3
 
+|Criteria 标准|Amazon S3 亚马逊 S3|Amazon EFS 亚马逊 EFS|
+|---|---|---|
+|Storage Type 存储类型|Object 对象|File System 文件系统|
+|Durability and Availability  <br>耐用性和可用性|Highly durable and available  <br>高度耐用且可用|Highly durable and available  <br>高度耐用且可用|
+|Access Interface 访问接口|RESTful API RESTful API|NFSv4 file system interface  <br>NFSv4 文件系统接口|
+|Concurrency 并发|Not suitable for concurrent file access  <br>不适合并发文件访问|Supports concurrent file access by multiple instances/containers  <br>支持多个实例/容器并发访问文件|
+|Latency and Performance 延迟和性能|Object-level operations with variable latency  <br>具有可变延迟的对象级操作|Low-latency file operations  <br>低延迟文件操作|
+|Cost-Effectiveness 成本效益|Offers specialized storage classes for cost-effective long-term storage (Standard, IA, Glacier)  <br>为经济高效的长期存储提供专门的存储类别（标准、IA、冰川）|Pricing based on storage consumption and throughput (per GB)  <br>基于存储消耗和吞吐量的定价（每 GB）|
+|Use Cases 使用案例|Object storage, data archiving, backups, data lakes  <br>对象存储、数据归档、备份、数据湖|Shared file system, content management, web serving  <br>共享文件系统、内容管理、Web 服务|
+## efs vs ebs vs s3
+[Amazon S3 vs EBS vs EFS](https://tutorialsdojo.com/amazon-s3-vs-ebs-vs-efs/)  
 # Scalability & High Availability
 ## Scalability
 Scalability in AWS refers to the ability of a system or application to handle an increasing workload by adding or removing resources as needed. AWS provides various services and features that enable organizations to scale their infrastructure and applications as their demand grows.  
@@ -263,6 +275,8 @@ A container for records that define how to route traffic to a domain and its sub
 ## Alias Records
 
 # Solutions Architecture
+[Reference Architecture Examples and Best Practices](https://aws.amazon.com/architecture/)  
+[AWS Solutions Library | Amazon Web Services | AWS](https://aws.amazon.com/solutions/)  
 ## Stateless Web App
 Scaling horizontally, with a load balancer，  
 Scaling horizontally, with an auto-scaling group  
@@ -295,8 +309,102 @@ Stateful applications require the storage and management of session-related data
 Aurora Database to have easy Multi-AZ and Read-Replicas
 • Storing data in EBS (single instance application)
 • Vs Storing data in EFS (distributed application)  
+## Well Architected Framework
+[AWS Well-Architected - Build secure, efficient cloud applications](https://aws.amazon.com/architecture/well-architected)  
+6 Pillars
+• 1) Operational Excellence
+• 2) Security
+• 3) Reliability
+• 4) Performance Efficiency
+• 5) Cost Optimization
+• 6) Sustainability
+## Trusted Advisor
+Cost optimization  
+• Performance  
+• Security  
+• Fault tolerance  
+• Service limits
+
+7 CORE CHECKS
+Basic & Developer Support plan
+• S3 Bucket Permissions
+• Security Groups – Specific Ports
+Unrestricted
+• IAM Use (one IAM user minimum)
+• MFA on Root Account
+• EBS Public Snapshots
+• RDS Public Snapshots
+• Service Limits
 
 # CloudFront
 Amazon CloudFront is a content delivery network (CDN) provided by AWS. CDN is a globally distributed network of servers that caches and delivers content from the nearest edge location to the end users, reducing latency and improving the performance of accessing content.  
 Amazon CloudFront 是由 AWS 提供的内容交付网络 （CDN）。CDN 是一个全球分布的服务器网络，可缓存内容并将其从最近的边缘站点交付给最终用户，从而减少延迟并提高访问内容的性能。
 
+# decoupling application components
+## SNS (Simple Notification Service)
+AWS SNS is a fully managed pub/sub messaging service that enables you to send and receive messages between different software systems, applications, and distributed services. It follows a publish-subscribe pattern, where one component (the publisher) sends messages to SNS topics, and other components (the subscribers) receive and process those messages asynchronously. SNS supports various protocols, including HTTP/HTTPS, email, SMS, push notifications, and Amazon SQS queuing.  
+AWS SNS 是一种完全托管的发布/订阅消息收发服务，使您能够在不同的软件系统、应用程序和分布式服务之间发送和接收消息。它遵循发布-订阅模式，其中一个组件（发布者）向 SNS 主题发送消息，其他组件（订阅者）异步接收和处理这些消息。SNS 支持各种协议，包括 HTTP/HTTPS、电子邮件、短信、推送通知和 Amazon SQS 队列。
+## SQS (Simple Queue Service)
+AWS SQS is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. It allows you to send, store, and receive messages/messages between different components or systems asynchronously. SQS queues act as buffers or temporary storage spaces for processing messages between the sender and the receiver. It ensures reliable and fault-tolerant message delivery and can handle large and variable message volumes.  
+AWS SQS 是一种完全托管的消息队列服务，使您能够分离和扩展微服务、分布式系统和无服务器应用程序。它允许您在不同组件或系统之间异步发送、存储和接收消息/消息。SQS 队列充当缓冲区或临时存储空间，用于处理发送方和接收方之间的消息。它可确保可靠和容错的消息传递，并且可以处理大量可变的消息。
+##  Key Differences between AWS SNS and AWS SQS
+
+|Key Differences 主要区别|AWS SNS |AWS SQS |
+|---|---|---|
+|Messaging Pattern 消息传递模式|Publish-Subscribe pattern  <br>发布-订阅模式|Queue-based messaging pattern  <br>基于队列的消息传递模式|
+|Message Persistence 消息持久性|Messages not retained 不保留邮件|Messages retained in the queue  <br>队列中保留的邮件|
+|Message Delivery 消息传递|Broadcasted to all subscribers  <br>向所有订阅者广播|Delivered to one receiver at a time  <br>一次交付给一个收件人|
+|Scaling 缩放|Ideal for fan-out scenarios  <br>扇出方案的理想选择|Suited for decoupling and load leveling  <br>适用于去耦和负载均衡|
+|Use Case Examples 用例示例|Notification system 通知系统|Decoupling components, background tasks  <br>解耦组件、后台任务|
+||Fan-out architectures 扇出架构|Asynchronous message processing  <br>异步消息处理|
+||Topic filtering 主题筛选|Fault tolerance 容错|
+
+## Amazon Kinesis Data Streams
+Amazon Kinesis Data Streams is well-suited for scenarios where real-time processing and analysis of streaming data at scale are required. It helps businesses gain valuable insights and take immediate actions based on the continuously flowing data.
+Amazon Kinesis Data Streams 非常适合需要大规模实时处理和分析流数据的场景。它可以帮助企业获得有价值的见解，并根据持续流动的数据立即采取行动。
+Amazon Kinesis Data Streams is a fully managed service provided by Amazon Web Services (AWS) that allows you to efficiently collect, process, and analyze streaming data in real-time. It is designed to handle large volumes of streaming data from various sources such as website clickstreams, application logs, IoT device telemetry, and more.  
+Amazon Kinesis Data Streams 是由 Amazon Web Services （AWS） 提供的一项完全托管的服务，可让您实时高效地收集、处理和分析流数据。它旨在处理来自各种来源的大量流数据，例如网站点击流、应用程序日志、IoT 设备遥测等。
+Scalability and Data Durability: Kinesis Data Streams can handle any amount of streaming data with automatic scaling. It automatically partitions the data across multiple shards to ensure high throughput and data durability. The data is stored in the stream for a specified retention period (default is 24 hours, but can be extended up to 7 days).
+可扩展性和数据持久性：Kinesis Data Streams 可以通过自动扩展处理任意数量的流数据。它会自动跨多个分片对数据进行分区，以确保高吞吐量和数据持久性。数据在流中存储指定的保留期（默认值为 24 小时，但可以延长到 7 天）。
+Data Delivery Guarantees: Kinesis Data Streams provides exactly-once delivery semantics, ensuring that data is reliably delivered in the same order it was sent. It also supports at-least-once delivery by enabling applications to deduplicate data records based on unique identifiers.
+数据传输保证：Kinesis Data Streams 提供恰好一次的交付语义，确保数据以与发送顺序相同的顺序可靠地交付。它还支持至少一次交付，使应用程序能够根据唯一标识符删除重复数据记录。
+# Networking
+## VPC
+In AWS (Amazon Web Services), VPC (Virtual Private Cloud) is a virtual networking service that allows users to create an isolated virtual network within the AWS cloud. It enables users to provision a logically isolated section of the AWS cloud where they can launch AWS resources, such as EC2 instances, RDS databases, and Elastic Load Balancers.  
+在AWS（亚马逊网络服务）中，VPC（虚拟私有云）是一种虚拟网络服务，允许用户在AWS云中创建隔离的虚拟网络。它使用户能够预置 AWS 云的逻辑隔离部分，他们可以在其中启动 AWS 资源，例如 EC2 实例、RDS 数据库和弹性负载均衡器。
+Secure and Isolated Environment: VPC provides a secure and isolated networking environment within the AWS cloud. Users can create their own private IP address range, subnets, and network access control lists (ACLs) to control inbound and outbound traffic.
+安全隔离的环境：VPC 在 AWS 云中提供安全且隔离的网络环境。用户可以创建自己的专用 IP 地址范围、子网和网络访问控制列表 （ACL） 来控制入站和出站流量。
+## Subnets
+Subnets: VPC allows users to divide their virtual network into multiple subnets, each residing in a specific availability zone. Subnets are used to distribute resources and provide additional network segmentation.
+子网：VPC 允许用户将其虚拟网络划分为多个子网，每个子网驻留在特定的可用区中。子网用于分配资源并提供额外的网络分段。
+Public and Private Subnets: Subnets in VPC can be categorized into public and private subnets based on their accessibility from the internet. A public subnet is associated with a route table that directs traffic to an internet gateway, allowing resources within the subnet to have direct internet access. In contrast, a private subnet routes traffic through a NAT Gateway or NAT instance if internet access is required.
+公有子网和私有子网：VPC 中的子网可以根据其从互联网上的可访问性分为公有子网和私有子网。公有子网与路由表相关联，该路由表将流量定向到互联网网关，从而允许子网中的资源直接访问互联网。相比之下，如果需要互联网访问，私有子网会通过 NAT 网关或 NAT 实例路由流量。
+Network ACLs: Each subnet in VPC is associated with a network ACL (Access Control List). Network ACLs act as a firewall by controlling inbound and outbound traffic to and from the subnet. They allow users to define rules that permit or deny specific types of traffic based on IP addresses, protocols, and port numbers.
+网络ACL：VPC中的每个子网都与一个网络ACL（访问控制列表）相关联。网络 ACL 通过控制进出子网的入站和出站流量来充当防火墙。它们允许用户定义规则，根据 IP 地址、协议和端口号允许或拒绝特定类型的流量。
+## Routing Table
+Routing Table: An important component of VPC networking is the routing table. Each subnet in VPC is associated with a routing table that defines how traffic is directed between subnets within the VPC, as well as traffic to and from the internet. The routing table determines whether traffic should flow internally within the VPC or be routed to the Internet Gateway for external communication.
+路由表：VPC 联网的重要组成部分是路由表。VPC 中的每个子网都与一个路由表相关联，该路由表定义如何在 VPC 内的子网之间定向流量，以及进出互联网的流量。路由表确定流量是在 VPC 内部流动还是路由到互联网网关进行外部通信。
+## Internet Gateway
+Public IP and NAT: Each instance that requires internet access is associated with either a public IP address or a private IP address translated via NAT (Network Address Translation). Instances in public subnets have direct public IP addresses assigned, while instances in private subnets use NAT Gateway or NAT Instance to access the internet via translation.
+公共 IP 和 NAT：每个需要访问互联网的实例都与通过 NAT（网络地址转换）转换的公共 IP 地址或私有 IP 地址相关联。公有子网中的实例分配了直接公有 IP 地址，而私有子网中的实例使用 NAT 网关或 NAT 实例通过转换访问互联网。
+By appropriately configuring the routing table with the Internet Gateway as the target for internet-bound traffic, and setting up appropriate inbound and outbound rules, instances within the VPC can securely communicate with the internet. This allows them to access public services, connect with external resources, and handle inbound traffic from the internet.
+通过适当配置路由表，将互联网网关作为互联网绑定流量的目标，并设置适当的入站和出站规则，VPC 内的实例可以安全地与互联网通信。这使他们能够访问公共服务、连接外部资源以及处理来自 Internet 的入站流量
+## NAT Gateway and NAT Instance
+In AWS VPC (Virtual Private Cloud), both NAT Gateway and NAT Instance serve similar purposes of allowing instances in private subnets to access the internet while preserving the privacy and security of the instances. However, they differ in terms of their management, scalability, and availability.  
+在 AWS VPC（虚拟私有云）中，NAT 网关和 NAT 实例具有类似的目的，即允许私有子网中的实例访问互联网，同时保护实例的隐私和安全。但是，它们在管理、可伸缩性和可用性方面有所不同。
+
+|Aspect 方面|NAT Gateway NAT 网关|NAT Instance NAT 实例|
+|---|---|---|
+|Management 管理|Fully managed AWS service  <br>完全托管的 AWS 服务|Manual configuration as an EC2 instance  <br>手动配置为 EC2 实例|
+|Availability 可用性|High availability, automatically distributed across multiple Availability Zones  <br>高可用性，自动分布在多个可用区中|Manual management, need to configure failover mechanisms  <br>手动管理，需要配置故障转移机制|
+|Scalability 可扩展性|Automatically scales based on traffic load  <br>根据流量负载自动扩展|Manual provisioning and sizing  <br>手动预配和大小调整|
+|Security 安全|Outbound traffic only, does not allow inbound traffic from the internet  <br>仅出站流量，不允许来自互联网的入站流量|More flexibility, can be configured with inbound and outbound traffic rules  <br>更灵活，可配置入站和出站流量规则|
+|Complexity 复杂性|Simple setup and management  <br>简单的设置和管理|More customization and management required  <br>需要更多自定义和管理|
+|Suitable for 适用于|Most scenarios, high availability and scalability  <br>大多数方案，高可用性和可伸缩性|Advanced networking configurations, fine-grained control and customization  <br>高级网络配置、精细控制和定制|
+
+# Data
+## Amazon Redshift
+Amazon Redshift is a fully managed, petabyte-scale data warehousing service provided by Amazon Web Services (AWS). It is designed to handle large-scale data analytics workloads and allows businesses to analyze vast amounts of structured and semi-structured data efficiently.  
+Amazon Redshift 是由 Amazon Web Services （AWS） 提供的完全托管的 PB 级数据仓库服务。它旨在处理大规模数据分析工作负载，并允许企业有效地分析大量结构化和半结构化数据。
+Amazon Redshift is commonly used for various data analytics use cases, including business intelligence, data warehousing, reporting, data exploration, and machine learning. Its managed nature, high performance, scalability, and integration with AWS services make it a popular choice for organizations looking to analyze and derive insights from large datasets.  
+Amazon Redshift 通常用于各种数据分析使用案例，包括商业智能、数据仓库、报告、数据探索和机器学习。其托管性质、高性能、可扩展性以及与 AWS 服务的集成使其成为希望从大型数据集分析和获取见解的组织的首选。
