@@ -4,30 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "91127083063c6afe",
-        "type": "tabs",
-        "dimension": 21.83406113537118,
-        "children": [
-          {
-            "id": "e41a4e1e73cdf8ce",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "saa_c03.md"
-              }
-            },
-            "group": "de37a861ad28270f"
-          }
-        ]
-      },
-      {
         "id": "4c4205afe01baeff",
         "type": "tabs",
-        "dimension": 78.16593886462883,
         "children": [
           {
-            "id": "7a5270ff51a5d71f",
+            "id": "e0ec945238141475",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -36,8 +17,7 @@
                 "mode": "source",
                 "source": false
               }
-            },
-            "group": "de37a861ad28270f"
+            }
           }
         ]
       }
@@ -97,8 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "bb6e2c06669023ce",
@@ -178,30 +157,31 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "7a5270ff51a5d71f",
+  "active": "e0ec945238141475",
   "lastOpenFiles": [
-    "img/saa_c03-20230725-5.png",
-    "img/saa_c03-20230725-4.png",
-    "img/saa_c03-20230725-3.png",
-    "img/saa_c03-20230725-2.png",
-    "img/saa_c03-20230725-1.png",
-    "img/saa_c03-20230725.png",
-    "img/saa_c03-20230724-5.png",
-    "img/saa_c03-20230724-4.png",
-    "img/saa_c03-20230724-3.png",
-    "img/saa_c03-20230724-2.png",
-    "img/saa_c03-20230724-1.png",
-    "code_v2023-04-07/route53/user-data.sh",
-    "code_v2023-04-07/ssm/handler.py",
-    "code_v2023-04-07/ssm/cli.sh",
-    "code_v2023-04-07/s3-advanced/pre-signed-url.sh",
-    "code_v2023-04-07/sqs/sqs.sh",
-    "code_v2023-04-07/s3-advanced/mfa-delete.sh",
-    "code_v2023-04-07/s3-advanced/athena-s3-access-logs.sql",
-    "code_v2023-04-07/s3/index.html",
-    "code_v2023-04-07/s3/index-with-fetch.html",
-    "code_v2023-04-07/s3/extra-page.html",
+    "img/saa_c03-20230814.png",
+    "The Linux Command Line.pdf",
+    "Unconfirmed 318765.crdownload",
+    "Demo_project.md",
+    "lab1/static-site/style.css",
+    "lab1/static-site/index.html",
+    "lab1/static-site/images/main_icecream.jpg",
+    "lab1/static-site/images",
+    "lab1/static-site",
+    "lab1/static-site.zip",
+    "lab1/Unconfirmed 466883.crdownload",
+    "lab1",
+    "New folder",
+    "img/Demo_project-20230814.png",
     "saa_c03.md",
+    "img/saa_c03-20230813-8.png",
+    "img/saa_c03-20230813-7.png",
+    "img/saa_c03-20230813-6.png",
+    "img/saa_c03-20230813-5.png",
+    "img/saa_c03-20230813-4.png",
+    "img/saa_c03-20230813-3.png",
+    "img/saa_c03-20230813-2.png",
+    "img/saa_c03-20230813-1.png",
     "README.md",
     "course_notes/fit5171.md",
     "course_notes/fit5171_note.md",
@@ -226,7 +206,6 @@
     "course_notes/fit5125.md",
     "course_notes/course_note_menu.md",
     "course_notes/cs61a.md",
-    "未命名.canvas",
-    "course_notes/fit5057.md"
+    "未命名.canvas"
   ]
 }

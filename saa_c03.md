@@ -340,34 +340,7 @@ Unrestricted
 Amazon CloudFront is a content delivery network (CDN) provided by AWS. CDN is a globally distributed network of servers that caches and delivers content from the nearest edge location to the end users, reducing latency and improving the performance of accessing content.  
 Amazon CloudFront 是由 AWS 提供的内容交付网络 （CDN）。CDN 是一个全球分布的服务器网络，可缓存内容并将其从最近的边缘站点交付给最终用户，从而减少延迟并提高访问内容的性能。
 
-# decoupling application components
-## SNS (Simple Notification Service)
-AWS SNS is a fully managed pub/sub messaging service that enables you to send and receive messages between different software systems, applications, and distributed services. It follows a publish-subscribe pattern, where one component (the publisher) sends messages to SNS topics, and other components (the subscribers) receive and process those messages asynchronously. SNS supports various protocols, including HTTP/HTTPS, email, SMS, push notifications, and Amazon SQS queuing.  
-AWS SNS 是一种完全托管的发布/订阅消息收发服务，使您能够在不同的软件系统、应用程序和分布式服务之间发送和接收消息。它遵循发布-订阅模式，其中一个组件（发布者）向 SNS 主题发送消息，其他组件（订阅者）异步接收和处理这些消息。SNS 支持各种协议，包括 HTTP/HTTPS、电子邮件、短信、推送通知和 Amazon SQS 队列。
-## SQS (Simple Queue Service)
-AWS SQS is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. It allows you to send, store, and receive messages/messages between different components or systems asynchronously. SQS queues act as buffers or temporary storage spaces for processing messages between the sender and the receiver. It ensures reliable and fault-tolerant message delivery and can handle large and variable message volumes.  
-AWS SQS 是一种完全托管的消息队列服务，使您能够分离和扩展微服务、分布式系统和无服务器应用程序。它允许您在不同组件或系统之间异步发送、存储和接收消息/消息。SQS 队列充当缓冲区或临时存储空间，用于处理发送方和接收方之间的消息。它可确保可靠和容错的消息传递，并且可以处理大量可变的消息。
-##  Key Differences between AWS SNS and AWS SQS
 
-|Key Differences 主要区别|AWS SNS |AWS SQS |
-|---|---|---|
-|Messaging Pattern 消息传递模式|Publish-Subscribe pattern  <br>发布-订阅模式|Queue-based messaging pattern  <br>基于队列的消息传递模式|
-|Message Persistence 消息持久性|Messages not retained 不保留邮件|Messages retained in the queue  <br>队列中保留的邮件|
-|Message Delivery 消息传递|Broadcasted to all subscribers  <br>向所有订阅者广播|Delivered to one receiver at a time  <br>一次交付给一个收件人|
-|Scaling 缩放|Ideal for fan-out scenarios  <br>扇出方案的理想选择|Suited for decoupling and load leveling  <br>适用于去耦和负载均衡|
-|Use Case Examples 用例示例|Notification system 通知系统|Decoupling components, background tasks  <br>解耦组件、后台任务|
-||Fan-out architectures 扇出架构|Asynchronous message processing  <br>异步消息处理|
-||Topic filtering 主题筛选|Fault tolerance 容错|
-
-## Amazon Kinesis Data Streams
-Amazon Kinesis Data Streams is well-suited for scenarios where real-time processing and analysis of streaming data at scale are required. It helps businesses gain valuable insights and take immediate actions based on the continuously flowing data.
-Amazon Kinesis Data Streams 非常适合需要大规模实时处理和分析流数据的场景。它可以帮助企业获得有价值的见解，并根据持续流动的数据立即采取行动。
-Amazon Kinesis Data Streams is a fully managed service provided by Amazon Web Services (AWS) that allows you to efficiently collect, process, and analyze streaming data in real-time. It is designed to handle large volumes of streaming data from various sources such as website clickstreams, application logs, IoT device telemetry, and more.  
-Amazon Kinesis Data Streams 是由 Amazon Web Services （AWS） 提供的一项完全托管的服务，可让您实时高效地收集、处理和分析流数据。它旨在处理来自各种来源的大量流数据，例如网站点击流、应用程序日志、IoT 设备遥测等。
-Scalability and Data Durability: Kinesis Data Streams can handle any amount of streaming data with automatic scaling. It automatically partitions the data across multiple shards to ensure high throughput and data durability. The data is stored in the stream for a specified retention period (default is 24 hours, but can be extended up to 7 days).
-可扩展性和数据持久性：Kinesis Data Streams 可以通过自动扩展处理任意数量的流数据。它会自动跨多个分片对数据进行分区，以确保高吞吐量和数据持久性。数据在流中存储指定的保留期（默认值为 24 小时，但可以延长到 7 天）。
-Data Delivery Guarantees: Kinesis Data Streams provides exactly-once delivery semantics, ensuring that data is reliably delivered in the same order it was sent. It also supports at-least-once delivery by enabling applications to deduplicate data records based on unique identifiers.
-数据传输保证：Kinesis Data Streams 提供恰好一次的交付语义，确保数据以与发送顺序相同的顺序可靠地交付。它还支持至少一次交付，使应用程序能够根据唯一标识符删除重复数据记录。
 # Networking
 ## VPC
 In AWS (Amazon Web Services), VPC (Virtual Private Cloud) is a virtual networking service that allows users to create an isolated virtual network within the AWS cloud. It enables users to provision a logically isolated section of the AWS cloud where they can launch AWS resources, such as EC2 instances, RDS databases, and Elastic Load Balancers.  
@@ -408,3 +381,486 @@ Amazon Redshift is a fully managed, petabyte-scale data warehousing service prov
 Amazon Redshift 是由 Amazon Web Services （AWS） 提供的完全托管的 PB 级数据仓库服务。它旨在处理大规模数据分析工作负载，并允许企业有效地分析大量结构化和半结构化数据。
 Amazon Redshift is commonly used for various data analytics use cases, including business intelligence, data warehousing, reporting, data exploration, and machine learning. Its managed nature, high performance, scalability, and integration with AWS services make it a popular choice for organizations looking to analyze and derive insights from large datasets.  
 Amazon Redshift 通常用于各种数据分析使用案例，包括商业智能、数据仓库、报告、数据探索和机器学习。其托管性质、高性能、可扩展性以及与 AWS 服务的集成使其成为希望从大型数据集分析和获取见解的组织的首选。
+
+# S3
+Amazon S3 is an object storage service that allows you to store and retrieve large amounts of unstructured data, such as files, images, videos, and backups. It provides highly durable and scalable storage with industry-leading security and global accessibility. S3 data is organized into buckets, and each object within a bucket is assigned a unique key. S3 is suitable for storing and distributing static content, hosting static websites, data archiving, data backup, and serving as a content delivery network (CDN) origin.
+Amazon S3 是一项对象存储服务，允许您存储和检索大量非结构化数据，例如文件、图像、视频和备份。它提供高度持久且可扩展的存储，具有行业领先的安全性和全球可访问性。S3 数据被组织到存储桶中，存储桶中的每个对象都被分配一个唯一的键。S3 适用于存储和分发静态内容、托管静态网站、数据存档、数据备份以及充当内容分发网络 （CDN） 源。
+In summary, Amazon S3 is an object storage service suitable for storing and retrieving unstructured data, while Amazon EFS is a scalable and shared file storage service for use cases requiring shared file systems among multiple EC2 instances.
+总之，Amazon S3 是一种对象存储服务，适用于存储和检索非结构化数据，而 Amazon EFS 是一种可扩展的共享文件存储服务，适用于需要在多个 EC2 实例之间共享文件系统的使用案例。
+## security
++ User-Based  IAM Policies – which API calls should be allowed for a specific user from IAM 基于用户的 • IAM 策略 – 应允许特定用户从 IAM 调用哪些 API  
++ Resource-Based Bucket Policies – bucket wide rules from the S3 console - allows cross account 基于资源 • 存储桶策略 – 来自 S3 控制台的存储桶范围规则 – 允许跨账户  
+## S3 Bucket Policies
+```json
+{
+  "Version": "2012-10-17",
+  "Id": "MyBucketPolicy",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::example-bucket/*"
+      ]
+    }
+  ]
+}
+
+```
+In this specific example, the policy allows public read access to objects in the `example-bucket`. You can further customize your S3 Bucket Policy to grant or restrict access based on specific IP addresses, IAM roles, or specific AWS accounts.   在此特定示例中，策略允许对 中的 `example-bucket` 对象进行公共读取访问。您可以进一步自定义 S3 存储桶策略，以根据特定 IP 地址、IAM 角色或特定 AWS 账户授予或限制访问权限。  
+- The `Effect` field can be set to `"Allow"` or `"Deny"`, indicating the access control decision.  
+    该 `Effect` 字段可以设置为 `"Allow"` 或 `"Deny"` ，指示访问控制决策。
+- The `Principal` field defines who the policy statement applies to. `"*"` indicates it applies to all principals.  
+    该 `Principal` 字段定义策略语句适用于谁。 `"*"` 指示它适用于所有主体。
+- The `Action` field specifies the S3 actions that are allowed or denied.  
+    该 `Action` 字段指定允许或拒绝的 S3 操作。
+- The `Resource` field specifies the resources (S3 objects or buckets) to which the policy applies. Here, it allows read access to objects in the `example-bucket`.  
+    该 `Resource` 字段指定应用策略的资源（S3 对象或存储桶）。在这里，它允许对 中的 `example-bucket` 对象进行读取访问。
+
+## S3 Storage Classes Comparison
+![](img/saa_c03-20230807.png)
+## Lifecycle Rules
++ Transition Actions – configure objects to transition to another storage class 转换操作 – 配置对象以转换到另一个存储类别  
++ Expiration actions – configure objects to expire (delete) after some time 过期操作 – 配置对象在一段时间后过期（删除） 
+```json
+{
+  "Rules": [
+    {
+      "ID": "TransitionRule",
+      "Status": "Enabled",
+      "Transitions": [
+        {
+          "Days": 30,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 90,
+          "StorageClass": "GLACIER"
+        }
+      ],
+      "Expiration": {
+        "Days": 365
+      }
+    }
+  ]
+}
+
+```
+- The `Transitions` array specifies two transition actions based on the object's age: after 30 days, objects are moved from Standard to Standard-IA, and after 90 days, objects are moved from Standard-IA to Glacier.  
+    该 `Transitions` 数组根据对象的存在时间指定两个转换操作：30 天后，对象将从标准 - IA 移动到标准 - IA，90 天后，对象从标准 - IA 移动到 Glacier。
+- The `Expiration` field specifies that objects should be permanently deleted after 365 days.  
+    该 `Expiration` 字段指定应在 365 天后永久删除对象。、
+
+# Advance storage service
+## snow family
+The "Snow" prefix in various AWS services refers to a family of physical data transfer and storage devices designed for offline data transfer and migration in scenarios where transferring data over the internet may not be feasible, practical, or cost-effective.
+各种 AWS 服务中的“Snow”前缀是指一系列物理数据传输和存储设备，专为离线数据传输和迁移而设计，适用于通过 Internet 传输数据可能不可行、不实用或不经济高效的情况。
+Yes, you can think of the Snow services as portable storage devices that enable you to copy and transfer large amounts of data to AWS. They are physical devices that you can use to store data and then ship to AWS data centers for offline data transfer.  
+是的，您可以将 Snow 服务视为便携式存储设备，使您能够将大量数据复制并传输到 AWS。它们是物理设备，可用于存储数据，然后运送到 AWS 数据中心进行离线数据传输。
+## Amazon FSx
+Amazon FSx is a fully managed, scalable, and high-performance file storage service provided by AWS. It simplifies the deployment and management of file systems for various use cases, such as Windows-based applications, high-performance computing (HPC), machine learning, media processing, and electronic design automation.
+Amazon FSx 是由 AWS 提供的一项完全托管、可扩展且高性能的文件存储服务。它简化了各种用例的文件系统部署和管理，例如基于 Windows 的应用程序、高性能计算 （HPC）、机器学习、媒体处理和电子设计自动化。
+## AWS Storage Gateway
+AWS Storage Gateway is a hybrid cloud storage service that connects on-premises environments with AWS cloud storage seamlessly. It enables you to extend your on-premises storage infrastructure to the cloud, providing a unified view of both on-premises and AWS storage resources.
+AWS Storage Gateway 是一种混合云存储服务，可将本地环境与 AWS 云存储无缝连接。它使您能够将本地存储基础设施扩展到云，从而提供本地和 AWS 存储资源的统一视图。
+You install a software appliance called the Storage Gateway on your on-premises infrastructure as a virtual machine (VM) or a physical appliance. 在本地基础架构上将名为存储网关的软件设备作为虚拟机 （VM） 或物理设备安装。The Storage Gateway connects to your local storage systems and provides access to AWS storage services. 存储网关连接到您的本地存储系统，并提供对 AWS 存储服务的访问。 
+Once deployed, the Storage Gateway integrates with various AWS services, such as Amazon S3, Amazon EBS, AWS Glacier, and AWS IAM. 部署后，Storage Gateway 可与各种 AWS 服务集成，例如 Amazon S3、Amazon EBS、AWS Glacier 和 AWS IAM。 It enables you to leverage AWS storage services for backup, archives, disaster recovery, and data migration. 它使您能够利用 AWS 存储服务进行备份、存档、灾难恢复和数据迁移。
+
+- File Gateway: Provides a file interface, allowing you to store and access files in Amazon S3. It also supports features like deduplication, compression, and encryption.  
+    文件网关：提供文件接口，允许您在 Amazon S3 中存储和访问文件。它还支持重复数据删除、压缩和加密等功能。
+- Volume Gateway: 卷网关：
+    - Stored Volumes: Presents your on-premises applications with iSCSI block storage volumes that are backed by Amazon EBS (Elastic Block Store). You can mount these volumes as iSCSI devices.  
+        存储卷：为您的本地应用程序提供由 Amazon EBS（弹性块存储）支持的 iSCSI 块存储卷。您可以将这些卷装载为 iSCSI 设备。
+    - Cached Volumes: Uses S3 as the primary data storage and caches frequently accessed data on-premises. It provides low-latency access to frequently accessed data while reducing the need for large on-premises storage.  
+        缓存卷：使用 S3 作为主数据存储，并在本地缓存经常访问的数据。它提供对频繁访问的数据的低延迟访问，同时减少对大型本地存储的需求。
+- Tape Gateway: Supports backup and archiving of data to AWS Glacier and S3 through a virtual tape library (VTL) interface. It emulates industry-standard tape libraries, allowing existing backup software to write data directly to virtual tapes.  
+    磁带网关：支持通过虚拟磁带库 （VTL） 接口将数据备份和存档到 AWS Glacier 和 S3。它模拟行业标准磁带库，允许现有备份软件将数据直接写入虚拟磁带。
+![](img/saa_c03-20230808.png)
+## DataSync
+AWS DataSync is a data transfer service provided by AWS for securely and efficiently moving large amounts of data between on-premises storage systems and AWS cloud storage services. It simplifies and accelerates data migration, content distribution, and data synchronization workflows.  
+AWS DataSync 是 AWS 提供的一项数据传输服务，用于在本地存储系统和 AWS 云存储服务之间安全高效地移动大量数据。它简化并加速了数据迁移、内容分发和数据同步工作流。
+![](img/saa_c03-20230808-1.png)
+
+# Global Infrastructure
+## Amazon CloudFront
+Amazon CloudFront is a content delivery network (CDN) provided by Amazon Web Services (AWS). It is a globally distributed network of edge locations designed to deliver content, such as web pages, images, videos, and other static or dynamic assets, to users with low latency and high data transfer speeds.
+Amazon CloudFront 是由 Amazon Web Services （AWS） 提供的内容交付网络 （CDN）。它是一个全球分布的边缘站点网络，旨在以低延迟和高数据传输速度向用户交付内容，例如网页、图像、视频和其他静态或动态资产。
+
+CloudFront works by caching content at edge locations located around the world. When a user requests content, CloudFront routes the request to the nearest edge location, minimizing the distance between the user and the server, and reducing latency. If the content is available in the cache, CloudFront delivers it directly from the edge location. If the content is not in the cache, CloudFront retrieves it from the origin server, caches it at the edge location, and delivers it to the user. This caching mechanism improves the performance and reduces the load on the origin server.
+CloudFront 的工作原理是在位于世界各地的边缘站点缓存内容。当用户请求内容时，CloudFront 会将请求路由到最近的边缘站点，从而最大限度地减少用户与服务器之间的距离，并减少延迟。如果内容在缓存中可用，CloudFront 会直接从边缘站点传输内容。如果内容不在缓存中，CloudFront 将从源服务器检索内容，将其缓存在边缘站点，然后将其传输给用户。此缓存机制可提高性能并减少源服务器上的负载。
+## CloudFront vs S3 Cross Region Replication
+CloudFront is a CDN service that caches and delivers content from edge locations worldwide to improve performance and reduce latency.
+CloudFront 是一项 CDN 服务，可从全球边缘站点缓存和交付内容，以提高性能并减少延迟。
+S3 Cross Region Replication is a data replication feature for S3 that ensures data redundancy and availability in different regions for disaster recovery and compliance purposes.
+S3 跨区域复制是 S3 的一项数据复制功能，可确保不同区域的数据冗余和可用性，以实现灾难恢复和合规性目的。
+To provide content to worldwide users, you can use both CloudFront and S3 Cross Region Replication together. You can store your content in an S3 bucket and configure Cross Region Replication to replicate the data to multiple regions for redundancy. Then, you can configure CloudFront to use your S3 bucket as an origin and cache the content at edge locations, enabling faster and local access to users worldwide.
+要向全球用户提供内容，您可以同时使用 CloudFront 和 S3 跨区域复制。您可以将内容存储在 S3 存储桶中，并将跨区域复制配置为将数据复制到多个区域以实现冗余。然后，您可以将 CloudFront 配置为使用 S3 存储桶作为源，并在边缘站点缓存内容，从而为全球用户提供更快的本地访问。
+## Global Accelerator
+Network Layer Acceleration: Global Accelerator is designed to improve the performance of applications at the network layer by directing user traffic over the AWS global network backbone. It uses Anycast routing to dynamically route traffic to the nearest AWS edge location, reducing latency and increasing application availability.
+网络层加速：全球加速器旨在通过 AWS 全球网络主干引导用户流量，从而提高网络层应用程序的性能。它使用任播路由将流量动态路由到最近的 AWS 边缘站点，从而减少延迟并提高应用程序可用性。
+## differences between Amazon CloudFront and AWS Global Accelerator
+
+|Name|Amazon CloudFront Amazon CloudFront|AWS Global Accelerator AWS 全球加速器|
+|---|---|---|
+|Function 功能|Content Delivery Network (CDN)  <br>内容分发网络 （CDN）|Network Layer Acceleration  <br>网络层加速|
+|Content Types 内容类型|Static and dynamic content (web pages, images, videos, APIs)  <br>静态和动态内容（网页、图像、视频、API）|Applications at the network layer  <br>网络层的应用|
+|Caching 缓存|Content caching and delivery from edge locations  <br>从边缘站点进行内容缓存和交付|IP Anycast routing and traffic routing over the AWS global network  <br>通过 AWS 全球网络的 IP 任播路由和流量路由|
+|Customization 定制|Granular control over caching behavior  <br>对缓存行为的精细控制|Static IP addresses and simplified DNS management  <br>静态 IP 地址和简化的 DNS 管理|
+|Health Checks 健康检查|N/A|Application-level health checks and automatic routing to healthy endpoints  <br>应用程序级运行状况检查和到运行状况良好的终端节点的自动路由|
+|Load Balancing 负载平衡|N/A|TCP and UDP support for load balancing  <br>TCP 和 UDP 支持负载平衡|
+|Use Cases 使用案例|Optimizing content delivery and performance  <br>优化内容交付和性能|Improving application performance, availability, and fault tolerance  <br>提高应用程序性能、可用性和容错能力|
+
+You should consider using Amazon CloudFront in the following cases:  
+在以下情况下，您应该考虑使用 Amazon CloudFront：
+
+- Content Delivery: Use CloudFront when you need to deliver various types of content, such as web pages, images, videos, or APIs, to users across the globe. CloudFront's content caching and distribution capabilities help reduce latency and improve performance by delivering content from edge locations closer to end users.  
+    内容交付：当您需要向全球用户交付各种类型的内容（例如网页、图像、视频或 API）时，请使用 CloudFront。CloudFront 的内容缓存和分发功能通过从更靠近最终用户的边缘站点交付内容，帮助减少延迟并提高性能。
+    
+- Dynamic Content: If you have dynamic content that requires customization or processing on the edge, CloudFront, with its Lambda@Edge integration, allows you to run serverless code at the nearest edge location, enabling dynamic content generation and customization.  
+    动态内容：如果您有需要在边缘进行自定义或处理的动态内容，CloudFront 及其Lambda@Edge集成允许您在最近的边缘站点运行无服务器代码，从而实现动态内容生成和自定义。
+    
+- Advanced Control: CloudFront offers granular control over caching behavior, allowing you to define cache duration, manage cache invalidation, customize cache keys, and control content delivery based on specific requirements. This level of control is beneficial when you need precise management of your content delivery.  
+    高级控制：CloudFront 提供对缓存行为的精细控制，允许您定义缓存持续时间、管理缓存失效、自定义缓存键以及根据特定要求控制内容交付。当您需要精确管理内容交付时，这种级别的控制是有益的。
+    
+
+You should consider using AWS Global Accelerator in the following cases:  
+在以下情况下，应考虑使用 AWS 全球加速器：
+
+- Application Performance: Use Global Accelerator when your primary goal is to improve performance, availability, and fault tolerance for your applications at the network layer. Global Accelerator leverages the AWS global network backbone and IP Anycast routing to direct traffic to the nearest edge location, reducing latency and providing consistent client IP addresses.  
+    应用程序性能：当您的主要目标是在网络层提高应用程序的性能、可用性和容错能力时，请使用全局加速器。全球加速器利用 AWS 全球网络主干网和 IP 任播路由将流量定向到最近的边缘站点，从而减少延迟并提供一致的客户端 IP 地址。
+    
+- TCP and UDP Support: Global Accelerator supports load balancing for both TCP and UDP-based applications, making it suitable for a wider range of applications beyond HTTP/HTTPS. If your application relies on UDP or TCP protocols, Global Accelerator can optimize their performance.  
+    TCP 和 UDP 支持：全局加速器支持基于 TCP 和 UDP 的应用程序的负载平衡，使其适用于 HTTP/HTTPS 以外的更广泛的应用程序。如果您的应用程序依赖于 UDP 或 TCP 协议，全局加速器可以优化其性能。
+    
+- Simplified DNS Management: If you require static IP addresses and simplified DNS management for your application endpoints, Global Accelerator assigns static IP addresses to your application and simplifies DNS configuration, providing consistent and easily manageable entry points to your applications.  
+    简化的 DNS 管理：如果您需要应用程序终端节点的静态 IP 地址和简化的 DNS 管理，Global Accelerator 会为您的应用程序分配静态 IP 地址并简化 DNS 配置，从而为您的应用程序提供一致且易于管理的入口点。
+    
+
+In summary, use CloudFront when you need a content delivery network with caching and customized control over content delivery. On the other hand, use Global Accelerator to optimize application performance at the network layer, provide fault tolerance, and simplify DNS management, especially for TCP and UDP-based applications.  
+总之，当您需要具有缓存和对内容交付的自定义控制的内容交付网络时，请使用 CloudFront。另一方面，使用全局加速器在网络层优化应用程序性能，提供容错能力并简化DNS管理，特别是对于基于TCP和UDP的应用程序。
+
+# AWS Integration & Messaging
+## SNS (Simple Notification Service)
+AWS SNS is a fully managed pub/sub messaging service that enables you to send and receive messages between different software systems, applications, and distributed services. It follows a publish-subscribe pattern, where one component (the publisher) sends messages to SNS topics, and other components (the subscribers) receive and process those messages asynchronously. SNS supports various protocols, including HTTP/HTTPS, email, SMS, push notifications, and Amazon SQS queuing.  
+AWS SNS 是一种完全托管的发布/订阅消息收发服务，使您能够在不同的软件系统、应用程序和分布式服务之间发送和接收消息。它遵循发布-订阅模式，其中一个组件（发布者）向 SNS 主题发送消息，其他组件（订阅者）异步接收和处理这些消息。SNS 支持各种协议，包括 HTTP/HTTPS、电子邮件、短信、推送通知和 Amazon SQS 队列。
+![](img/saa_c03-20230808-3.png)
+## SQS (Simple Queue Service)
+AWS SQS is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. It allows you to send, store, and receive messages/messages between different components or systems asynchronously. SQS queues act as buffers or temporary storage spaces for processing messages between the sender and the receiver. It ensures reliable and fault-tolerant message delivery and can handle large and variable message volumes.  
+AWS SQS 是一种完全托管的消息队列服务，使您能够分离和扩展微服务、分布式系统和无服务器应用程序。它允许您在不同组件或系统之间异步发送、存储和接收消息/消息。SQS 队列充当缓冲区或临时存储空间，用于处理发送方和接收方之间的消息。它可确保可靠和容错的消息传递，并且可以处理大量可变的消息。
+
+1. Produce Messages: 生成消息：
+    
+    - Applications send messages to the queue by making an API call and providing the content of the message.  
+        应用程序通过进行 API 调用并提供消息内容将消息发送到队列。
+    - Messages can include any information like JSON, XML, or plain text, and can contain up to 256KB of data.  
+        消息可以包含任何信息，如 JSON、XML 或纯文本，最多可以包含 256KB 的数据。
+    - Messages are put into the queue and are not processed immediately until they are actively received.  
+        消息被放入队列中，在主动接收消息之前不会立即处理。
+1. Consume Messages: 消费消息：
+    
+    - Clients (also known as consumers or workers) retrieve messages from the queue by calling the receive message API.  
+        客户端（也称为使用者或工作线程）通过调用接收消息 API 从队列中检索消息。
+    - Once a client receives a message, it becomes temporarily hidden from other consumers for a duration known as the message visibility timeout.  
+        客户端收到消息后，它会在称为消息可见性超时的持续时间内暂时对其他使用者隐藏。
+    - The client has the responsibility to complete the processing of the message within this timeout.  
+        客户端有责任在此超时内完成消息的处理。
+2. Message Processing: 消息处理：
+    
+    - Clients process the received messages based on the business logic of the application.  
+        客户端根据应用程序的业务逻辑处理收到的消息。
+    - After processing the message, the client must explicitly delete the message from the queue using the delete message API.  
+        处理消息后，客户端必须使用删除消息 API 从队列中显式删除消息。
+    - If the processing fails or times out, the message automatically becomes visible in the queue again after the visibility timeout period, allowing it to be consumed by another client for processing.  
+        如果处理失败或超时，消息将在可见性超时期限后自动再次在队列中可见，从而允许另一个客户端使用它进行处理。
+
+![](img/saa_c03-20230808-2.png)
+
+##  Key Differences between AWS SNS and AWS SQS
+![](img/saa_c03-20230808-4.png)
+
+|Key Differences 主要区别|AWS SNS |AWS SQS |
+|---|---|---|
+|Messaging Pattern 消息传递模式|Publish-Subscribe pattern  <br>发布-订阅模式|Queue-based messaging pattern  <br>基于队列的消息传递模式|
+|Message Persistence 消息持久性|Messages not retained 不保留邮件|Messages retained in the queue  <br>队列中保留的邮件|
+|Message Delivery 消息传递|Broadcasted to all subscribers  <br>向所有订阅者广播|Delivered to one receiver at a time  <br>一次交付给一个收件人|
+|Scaling 缩放|Ideal for fan-out scenarios  <br>扇出方案的理想选择|Suited for decoupling and load leveling  <br>适用于去耦和负载均衡|
+|Use Case Examples 用例示例|Notification system 通知系统|Decoupling components, background tasks  <br>解耦组件、后台任务|
+||Fan-out architectures 扇出架构|Asynchronous message processing  <br>异步消息处理|
+||Topic filtering 主题筛选|Fault tolerance 容错|
+
+## Amazon Kinesis Data Streams
+Amazon Kinesis Data Streams is well-suited for scenarios where real-time processing and analysis of streaming data at scale are required. It helps businesses gain valuable insights and take immediate actions based on the continuously flowing data.
+Amazon Kinesis Data Streams 非常适合需要大规模实时处理和分析流数据的场景。它可以帮助企业获得有价值的见解，并根据持续流动的数据立即采取行动。
+Amazon Kinesis Data Streams is a fully managed service provided by Amazon Web Services (AWS) that allows you to efficiently collect, process, and analyze streaming data in real-time. It is designed to handle large volumes of streaming data from various sources such as website clickstreams, application logs, IoT device telemetry, and more.  
+Amazon Kinesis Data Streams 是由 Amazon Web Services （AWS） 提供的一项完全托管的服务，可让您实时高效地收集、处理和分析流数据。它旨在处理来自各种来源的大量流数据，例如网站点击流、应用程序日志、IoT 设备遥测等。
+Scalability and Data Durability: Kinesis Data Streams can handle any amount of streaming data with automatic scaling. It automatically partitions the data across multiple shards to ensure high throughput and data durability. The data is stored in the stream for a specified retention period (default is 24 hours, but can be extended up to 7 days).
+可扩展性和数据持久性：Kinesis Data Streams 可以通过自动扩展处理任意数量的流数据。它会自动跨多个分片对数据进行分区，以确保高吞吐量和数据持久性。数据在流中存储指定的保留期（默认值为 24 小时，但可以延长到 7 天）。
+Data Delivery Guarantees: Kinesis Data Streams provides exactly-once delivery semantics, ensuring that data is reliably delivered in the same order it was sent. It also supports at-least-once delivery by enabling applications to deduplicate data records based on unique identifiers.
+数据传输保证：Kinesis Data Streams 提供恰好一次的交付语义，确保数据以与发送顺序相同的顺序可靠地交付。它还支持至少一次交付，使应用程序能够根据唯一标识符删除重复数据记录。
+
+## Kinesis
+Amazon Kinesis is a fully managed service provided by AWS for real-time streaming and processing of large amounts of data. It is designed to handle data in motion and enables you to collect, process, and analyze streaming data from diverse sources like websites, mobile apps, IoT devices, logs, and more. 
+Amazon Kinesis 是 AWS 提供的一项完全托管的服务，用于实时流式传输和处理大量数据。它旨在处理动态数据，使您能够收集、处理和分析来自不同来源（如网站、移动应用程序、IoT 设备、日志等）的流数据。
+## Kinesis Data Streams
+ <mark style="background: #ff0000;">Amazon Kinesis Data Streams: capture, process, and store data streams</mark> Kinesis Data Streams allows you to ingest and process real-time streaming data. Kinesis Data Streams 允许您摄取和处理实时流数据。It can handle data from multiple sources and allows you to process and analyze data in conjunction with other AWS services like Lambda, Kinesis Data Analytics, Elasticsearch, and more. 它可以处理来自多个来源的数据，并允许您与其他 AWS 服务（如 Lambda、Kinesis Data Analytics、Elasticsearch 等）一起处理和分析数据。
+![](img/saa_c03-20230809.png)
+A data stream is divided into smaller, independent units called shards.
+数据流被划分为更小的独立单元，称为分片。
+Each shard is a sequence of records and has a specified capacity (data records per second) and a specified maximum size (storage in MB).
+每个分片都是一个记录序列，具有指定的容量（每秒数据记录数）和指定的最大大小（以 MB 为单位的存储）。
+As data volume increases, you can scale the number of shards in a data stream to handle higher throughput.
+随着数据量的增加，您可以扩展数据流中的分片数量以处理更高的吞吐量。
+Data consumers retrieve data records from the shards and process them.
+数据使用者从分片中检索数据记录并对其进行处理。
+They can perform real-time analytics, apply business logic, enrich data, aggregate statistics, or store data in other systems like S3 or databases.
+他们可以执行实时分析、应用业务逻辑、丰富数据、聚合统计信息或将数据存储在其他系统（如 S3 或数据库）中。
+You can integrate services like Kinesis Data Analytics, Amazon Redshift, Amazon Elasticsearch, or custom applications to analyze the data in real-time or perform batch processing.
+您可以集成 Kinesis Data Analytics、Amazon Redshift、Amazon Elasticsearch 或自定义应用程序等服务，以实时分析数据或执行批处理。
+If you want to store the data for longer durations, you can use Kinesis Data Streams with services like S3 or DynamoDB for long-term storage, or Amazon Glue for data cataloging.
+如果您想将数据存储更长时间，可以将 Kinesis Data Streams 与 S3 或 DynamoDB 等服务结合使用以进行长期存储，或将 Amazon Glue 用于数据编目。
+
+## Kinesis Data Firehose
+ <mark style="background: #ff0000;">Amazon Kinesis Data Firehose: load data streams into AWS data stores</mark> It automatically scales and manages the data delivery to services like Amazon S3, Amazon Redshift, Amazon Elasticsearch Service, and Splunk, without requiring the manual effort of setting up and managing the infrastructure. 它可以自动扩展和管理向 Amazon S3、Amazon Redshift、Amazon Elasticsearch Service 和 Splunk 等服务交付的数据，而无需手动设置和管理基础设施。
+![](img/saa_c03-20230809-1.png)
+
+Once the data is ingested, you have the option to enable data transformation in Firehose.
+摄取数据后，您可以选择在 Firehose 中启用数据转换。
+You can configure transformation operations using AWS Glue DataBrew or AWS Lambda functions to convert, filter, enrich, or aggregate the data.
+您可以使用 AWS Glue DataBrew 或 AWS Lambda 函数配置转换操作，以转换、筛选、扩充或聚合数据。
+Kinesis Data Firehose allows you to deliver data to various destinations, including AWS services and third-party systems. These are called delivery destinations.
+Kinesis Data Firehose 允许您将数据传送到各种目的地，包括 AWS 服务和第三方系统。这些称为交付目的地  
+Firehose buffers incoming records before delivering them to the configured destination.
+Firehose 会在将传入记录传送到配置的目标之前对其进行缓冲。 
+Firehose continuously batches the buffered records and delivers them to the configured destination.
+Firehose 持续批处理缓冲的记录，并将其传送到配置的目标。 
+
+
+## Kinesis Data Analytics
++ <mark style="background: #3CB371;">Kinesis Data Analytics: analyze data streams with SQL or Apache Flink </mark>It provides an SQL language-based environment to perform real-time analytics on streaming data from Kinesis Data Streams or other input sources. 它提供了一个基于 SQL 语言的环境，用于对来自 Kinesis Data Streams 或其他输入源的流数据执行实时分析。Kinesis Data Analytics can be integrated with other AWS services like Lambda, S3, and Redshift to enrich and deliver results or store processed data. Kinesis Data Analytics 可以与其他 AWS 服务（如 Lambda、S3 和 Redshift）集成，以丰富和交付结果或存储处理后的数
+## differences between Amazon Kinesis Data Streams and Amazon Kinesis Data Firehose
+
+|Feature 特征|Kinesis Data Streams Kinesis 数据流|Kinesis Data Firehose Kinesis Data Firehose|
+|---|---|---|
+|Purpose 目的|Low-latency, real-time streaming data processing  <br>低延迟、实时流数据处理|Data ingestion and delivery to various destinations  <br>数据引入和传递到各个目标|
+|Use Cases 使用案例|Real-time analytics, machine learning, complex processing  <br>实时分析、机器学习、复杂处理|Loading data into storage or analytics services without managing infrastructure  <br>将数据加载到存储或分析服务中，而无需管理基础架构|
+|Data Processing 数据处理|Custom applications or AWS Lambda functions with full control over processing logic  <br>自定义应用程序或 AWS Lambda 函数，可完全控制处理逻辑|Limited data processing capabilities, basic transformations using AWS Glue DataBrew/Lambda  <br>有限的数据处理能力，使用 AWS Glue DataBrew/Lambda 进行基本转换|
+|Scalability 可扩展性|Manual or automatic scaling of shards to handle changes in data volumes and throughput  <br>手动或自动扩展分片以处理数据量和吞吐量的变化|Automatic scaling based on incoming data volume  <br>根据传入数据量自动扩展|
+|Data Retention 数据保留|Configurable data retention for up to 7 days  <br>可配置的数据保留长达 7 天|No built-in data retention beyond buffering and delivery  <br>除了缓冲和交付之外，没有内置的数据保留|
+|Destination Options 目的地选项|Streaming to AWS services, third-party systems, or custom applications  <br>流式传输到 AWS 服务、第三方系统或自定义应用程序|Pre-built integrations with storage/analytics services, custom HTTP endpoints  <br>与存储/分析服务、自定义 HTTP 端点的预构建集成|
+|Management/Administration  <br>管理/行政|Requires management of infrastructure, scaling, data processing, and monitoring  <br>需要管理基础架构、扩展、数据处理和监控|Manages infrastructure, automatic scaling, and buffering  <br>管理基础架构、自动扩展和缓冲|
+
+## Amazon Kinesis and Amazon Simple Queue Service (SQS)
+
+  
+
+|Feature 特征|Kinesis 运动|SQS|
+|---|---|---|
+|Message Ordering 消息排序|Maintains order within shards  <br>维持分片内的秩序|FIFO queues guarantee exact order within message groups  <br>先进先出队列保证消息组中的准确顺序|
+|||Standard queues provide at-least-once delivery, but overall order might not be preserved  <br>标准队列提供至少一次传递，但可能无法保留整体顺序|
+|Scenarios to Use 要使用的方案|Real-time analytics 实时分析|Decoupled applications, distributed systems  <br>解耦应用程序，分布式系统|
+||Log processing 日志处理|Reliable message-based processing  <br>可靠的基于消息的处理|
+||Continuous monitoring 持续监测|Prioritized message handling  <br>优先消息处理|
+||IoT data ingestion 物联网数据引入|Elastic scalability 弹性可扩展性|
+||Large-scale data streaming  <br>大规模数据流|
+
+## SQS vs SNS vs Kinesis
+
+|Feature 特征|SQS|SNS|Kinesis 运动|
+|---|---|---|---|
+|Purpose and Use Cases 目的和用例|Decoupling system components and enabling asynchronous communication  <br>解耦系统组件并实现异步通信|Pub/sub messaging among multiple recipients  <br>多个收件人之间的发布/订阅消息传递|Real-time streaming data processing  <br>实时流数据处理|
+|Messaging Pattern 消息传递模式|Message queuing 消息队列|Publish/subscribe 发布/订阅|Data streaming 数据流|
+|Message Retention 邮件保留|Messages remain until consumed and deleted  <br>邮件会一直保留，直到被使用和删除|Messages are not retained by default  <br>默认情况下不保留消息|Configurable retention period for data records  <br>可配置的数据记录保留期|
+|Message Ordering 消息排序|Standard queues: Best-effort ordering  <br>标准队列：尽力而为的排序|Does not guarantee message ordering across subscribers  <br>不保证订阅者之间的消息排序|Maintains order within shards, no guarantee across shards  <br>维持分片内的秩序，不保证分片之间|
+|Event Fanout 事件扇出|Can be used with SNS to fan out messages to multiple SQS queues  <br>可与 SNS 一起使用，将消息扇出到多个 SQS 队列|Native support for sending messages to multiple subscribers  <br>本机支持向多个订阅者发送消息|Parallel processing among multiple consumers through shards  <br>通过分片在多个消费者之间并行处理|
+|Data Processing 数据处理|Limited processing capabilities, additional components required  <br>处理能力有限，需要额外的组件|Primarily focuses on message delivery to subscribers  <br>主要关注向订阅者传递消息|Advanced data processing capabilities, real-time analytics, complex processing, transformations  <br>高级数据处理功能、实时分析、复杂处理、转换|
+|Management and Scalability  <br>管理和可扩展性|Fully managed, scalable, and reliable  <br>完全托管、可扩展且可靠|Fully managed, scalable, and reliable  <br>完全托管、可扩展且可靠|Fully managed, scalable, and reliable  <br>完全托管、可扩展且可靠|
+
+# Container service
++ Amazon Elastic Container Service (Amazon ECS) Amazon’s own container platform  
++ Amazon Elastic Kubernetes Service (Amazon EKS) Amazon’s managed Kubernetes (open source)  
++ AWS Fargate Amazon’s own Serverless container platform  Works with ECS and with EKS  
++ Amazon ECR: Store container images  
+
+## Amazon ECS (Elastic Container Service)
+Amazon ECS (Elastic Container Service) is a highly scalable container orchestration service provided by Amazon Web Services. It simplifies the deployment and management of containerized applications in a highly available and scalable manner.
+Amazon ECS（弹性容器服务）是由亚马逊云科技提供的高度可扩展的容器编排服务。它以高度可用且可扩展的方式简化了容器化应用程序的部署和管理。
+
+ECS allows you to run and manage Docker containers on a fleet of EC2 instances or using AWS Fargate, a serverless compute engine for containers. It provides a scalable and flexible platform for deploying and managing containers without having to provision or manage the underlying infrastructure.
+ECS 允许您在 EC2 实例队列上运行和管理 Docker 容器，或使用 AWS Fargate（用于容器的无服务器计算引擎）。它提供了一个可扩展且灵活的平台，用于部署和管理容器，而无需预配或管理底层基础架构。
+
+## Amazon Elastic Container Registry (ECR)
+Yes, that's correct. Amazon ECR can be considered as a private Docker registry, similar to DockerHub. However, ECR is specifically designed to work within the AWS ecosystem and offers tight integration with other AWS services such as Amazon ECS, AWS Fargate, and Amazon EKS.  
+是的，这是正确的。Amazon ECR 可以被视为私有 Docker 注册表，类似于 DockerHub。但是，ECR 专门设计用于在 AWS 生态系统中工作，并提供与其他 AWS 服务（如 Amazon ECS、AWS Fargate 和 Amazon EKS）的紧密集成。 
+Like DockerHub, ECR allows you to store, manage, and deploy Docker container images. The major difference is that ECR provides private repositories by default, ensuring that your container images are only accessible to authorized users or systems within your AWS account. This ensures a higher level of security and control over your container images.  
+与 DockerHub 一样，ECR 允许您存储、管理和部署 Docker 容器映像。主要区别在于 ECR 默认提供私有存储库，确保您的容器映像仅可供您的 AWS 账户中的授权用户或系统访问。这可确保对容器映像具有更高级别的安全性和控制。
+
+## Amazon Elastic Kubernetes Service (EKS) 
+In summary, Amazon EKS simplifies the deployment, management, scaling, and operation of Kubernetes clusters. It provides a fully managed and highly available Kubernetes control plane, seamless integration with AWS services, compatibility with the Kubernetes ecosystem, and strong security. These features make EKS an attractive choice for organizations wanting to leverage Kubernetes for deploying containerized applications on AWS.
+总之，Amazon EKS 简化了 Kubernetes 集群的部署、管理、扩展和操作。它提供了一个完全托管且高度可用的 Kubernetes 控制平面、与 AWS 服务的无缝集成、与 Kubernetes 生态系统的兼容性以及强大的安全性。这些功能使 EKS 成为希望利用 Kubernetes 在 AWS 上部署容器化应用程序的组织的有吸引力的选择。
+![](img/saa_c03-20230809-2.png)
+Amazon EKS does not require a file system. By default, EKS uses Amazon Elastic Block Store (EBS) for persistent storage of your containerized applications. Each worker node in an EKS cluster can have its own EBS volumes attached to it, which can be used to store data persistently.  
+Amazon EKS 不需要文件系统。默认情况下，EKS 使用 Amazon Elastic Block Store （EBS） 对容器化应用程序进行持久存储。EKS 集群中的每个工作线程节点都可以附加自己的 EBS 卷，这些卷可用于持久存储数据。
+However, Kubernetes, the underlying container orchestration system used by EKS, supports various storage options other than EBS, such as network file systems like Amazon EFS or distributed storage systems like Amazon S3. These storage options can be integrated with EKS clusters to meet specific application requirements.  
+但是，EKS 使用的底层容器编排系统 Kubernetes 支持 EBS 以外的各种存储选项，例如 Amazon EFS 等网络文件系统或 Amazon S3 等分布式存储系统。这些存储选项可以与 EKS 集群集成，以满足特定的应用要求。 
+
+# Serverless
+Serverless is a new paradigm in which the developers don’t have to manage servers anymore... They just deploy code  
+Serverless does not mean there are no servers... it means you just don’t manage / provision / see them  
+## Architecture
+![](img/saa_c03-20230813-6.png)
++ Using Cognito to generate temporary credentials with STS to access S3 bucket with restricted policy. App users can directly access AWS resources this way. Pattern can be applied to DynamoDB, Lambda...  
++ Caching the reads on DynamoDB using DAX  
++ Caching the REST requests at the API Gateway level  
++ Security for authentication and authorization with Cognito, STS
+
+![](img/saa_c03-20230813-7.png)
++ static content being distributed using CloudFront with S3  
++ We enabled DynamoDB streams to trigger a Lambda function The lambda function had an IAM role which could use SES
+
+![](img/saa_c03-20230813-8.png)
+
+# AWS API Gateway
+![](img/saa_c03-20230813-2.png)
+API Gateway simplifies the process of creating and managing APIs, abstracting away common operational tasks and ensuring scalability, security, and performance. It is a crucial component in building modern serverless architectures, microservices, and API-driven applications on AWS.  
+API 网关简化了创建和管理 API 的过程，抽象出常见的操作任务，并确保可扩展性、安全性和性能。它是在 AWS 上构建现代无服务器架构、微服务和 API 驱动型应用程序的关键组件。
+
+# Amazon Cognito 
+Amazon Cognito is a fully managed service provided by Amazon Web Services (AWS) that simplifies the process of adding authentication, authorization, and user management to your applications. It provides developers with a secure and scalable user directory that can be easily integrated into web, mobile, and server-side applications.  
+Amazon Cognito 是由 Amazon Web Services （AWS） 提供的一项完全托管的服务，可简化向应用程序添加身份验证、授权和用户管理的过程。它为开发人员提供了一个安全且可扩展的用户目录，可以轻松集成到 Web、移动和服务器端应用程序中。 
+User Directories and User Management: Cognito provides a flexible and scalable user directory, known as a User Pool, where you can store and manage user profiles, attributes, and groups. User Pools can be used as a standalone directory or integrated with existing identity systems. You can define custom user attributes and control which attributes are required, read-only, or invite-only. Additionally, Cognito provides APIs and SDKs for user management operations like account confirmation, password resets, and user profile updates.
+用户目录和用户管理：Cognito 提供了一个灵活且可扩展的用户目录，称为用户池，您可以在其中存储和管理用户配置文件、属性和组。用户池可以用作独立目录，也可以与现有身份系统集成。您可以定义自定义用户属性并控制哪些属性是必需的、只读的或仅邀请的。此外，Cognito 还提供用于用户管理操作（如帐户确认、密码重置和用户配置文件更新）的 API 和 SDK。
+![](img/saa_c03-20230813-3.png)
+Secure Token Generation: Cognito issues JSON Web Tokens (JWTs) upon successful authentication, which can be securely passed between your application and backend services to authorize subsequent API requests. These tokens contain user identity information and can be used for secure communication between frontend and backend components.
+安全令牌生成：Cognito 在身份验证成功后颁发 JSON Web 令牌 （JWT），可以在应用程序和后端服务之间安全地传递这些令牌，以授权后续 API 请求。这些令牌包含用户标识信息，可用于前端和后端组件之间的安全通信。
+
+![](img/saa_c03-20230813-4.png)
+
+# Database
+## db type
+1. Relational Databases: 关系数据库：
+    
+    - Amazon RDS (Relational Database Service) - Managed service for relational databases like MySQL, PostgreSQL, MariaDB, Oracle, and Microsoft SQL Server.  
+        Amazon RDS（关系数据库服务） - 适用于关系数据库（如 MySQL、PostgreSQL、MariaDB、Oracle 和 Microsoft SQL Server）的托管服务。
+    - Amazon Aurora - High-performance, scalable, and fully managed MySQL and PostgreSQL-compatible database engine.  
+        Amazon Aurora - 高性能、可扩展且完全托管的 MySQL 和 PostgreSQL 兼容数据库引擎。
+    - Amazon Redshift - Fully managed, petabyte-scale data warehouse service for analytics and business intelligence.  
+        Amazon Redshift - 用于分析和商业智能的完全托管的 PB 级数据仓库服务。
+2. NoSQL Databases: NoSQL数据库：
+    
+    - Amazon DynamoDB - Fully managed NoSQL database for high-performance, low-latency applications at any scale.  
+        Amazon DynamoDB - 完全托管的 NoSQL 数据库，适用于任何规模的高性能、低延迟应用程序。
+    - Amazon DocumentDB - Fully managed MongoDB-compatible document database service.  
+        Amazon DocumentDB - 完全托管的 MongoDB 兼容文档数据库服务。
+    - Amazon Keyspaces (for Apache Cassandra) - Scalable, highly available, and fully managed Apache Cassandra-compatible database service.  
+        Amazon Keyspaces （for Apache Cassandra） - 可扩展、高度可用且完全托管的 Apache Cassandra 兼容数据库服务。
+3. In-Memory Databases: 内存数据库：
+    
+    - Amazon ElastiCache - Fully managed in-memory caching service supporting both Memcached and Redis to boost application performance.  
+        Amazon ElastiCache - 完全托管的内存中缓存服务，支持 Memcached 和 Redis，可提高应用程序性能。
+4. Time Series Databases: 时间序列数据库：
+    
+    - Amazon Timestream - Fully managed time series database for collecting, storing, and analyzing time-stamped data at scale.  
+        Amazon Timestream - 完全托管的时间序列数据库，用于大规模收集、存储和分析带时间戳的数据。
+5. Ledger Databases: 账本数据库：
+    
+    - Amazon Quantum Ledger Database (QLDB) - Fully managed ledger database for maintaining an immutable and verifiable transaction log.  
+        Amazon Quantum Ledger Database （QLDB） - 完全托管的账本数据库，用于维护不可变且可验证的事务日志。
+6. Graph Databases: 图形数据库：
+    
+    - Amazon Neptune - Fully managed graph database service that makes it easy to build and run applications that work with highly connected datasets.  
+        Amazon Neptune - 完全托管的图形数据库服务，可让您轻松构建和运行处理高度连接数据集的应用程序。
+7. Analytics Databases: 分析数据库：
+    
+    - Amazon Athena - Interactive query service to analyze data in Amazon S3 using standard SQL.  
+        Amazon Athena - 交互式查询服务，用于使用标准 SQL 分析 Amazon S3 中的数据。
+    - Amazon EMR (Elastic MapReduce) - Managed big data platform to process and analyze vast amounts of data using popular frameworks like Apache Spark, Hadoop, and more.  
+        Amazon EMR （Elastic MapReduce） - 托管大数据平台，使用流行的框架（如 Apache Spark、Hadoop 等）处理和分析大量数据。
+8. Blockchain Databases: 区块链数据库：
+    
+    - Amazon Managed Blockchain - Fully managed service for creating and managing scalable blockchain networks.  
+        Amazon Managed Blockchain - 用于创建和管理可扩展区块链网络的完全托管服务。
+9. Data Lake: 数据湖：
+    
+    - Amazon S3 (Simple Storage Service) - Object storage service often used as a data lake to collect and store large volumes of structured and unstructured data.  
+        Amazon S3（简单存储服务） - 对象存储服务，通常用作数据湖来收集和存储大量结构化和非结构化数据。
+
+## DynamoDB
+1. NoSQL Database: DynamoDB is a NoSQL database, meaning it does not use the traditional relational structure with fixed schemas and tables. Instead, it provides a flexible data model, allowing you to store structured, semi-structured, and unstructured data without needing a predefined schema.  
+    NoSQL 数据库：DynamoDB 是一个 NoSQL 数据库，这意味着它不使用具有固定模式和表的传统关系结构。相反，它提供了一个灵活的数据模型，允许您存储结构化、半结构化和非结构化数据，而无需预定义的架构。
+    
+2. Key-Value Store: DynamoDB uses a key-value store model for data storage. Each item in the database consists of a primary key (composed of one or two attributes) and an associated value. The primary key enables efficient retrieval of items.  
+    键值存储：DynamoDB 使用键值存储模型进行数据存储。数据库中的每个项目都由一个主键（由一个或两个属性组成）和一个关联的值组成。主键可以高效检索项目。
+    
+3. Scalability and Performance: DynamoDB is designed to scale horizontally, allowing you to handle large volumes of traffic and massive amounts of data. It automatically partitions and distributes data across multiple servers to provide near-linear scalability. You can increase or decrease throughput capacity based on your application's needs.  
+    可扩展性和性能：DynamoDB 旨在水平扩展，使您能够处理大量流量和大量数据。它自动在多个服务器之间分区和分发数据，以提供近乎线性的可扩展性。您可以根据应用程序的需求增加或减少吞吐容量。
+
+![](img/saa_c03-20230813.png) 
+### DynamoDB Accelerator (DAX)
+Help solve read congestion by caching  
+![](img/saa_c03-20230813-1.png)  
+
+# Data & Analytics
+## Amazon Athena
+Amazon Athena is an interactive serverless query service provided by AWS. It allows you to analyze data stored in Amazon S3 using standard SQL queries without the need for provisioning or managing infrastructure.  
+Amazon Athena 是 AWS 提供的一项交互式无服务器查询服务。它允许您使用标准 SQL 查询分析 Amazon S3 中存储的数据，而无需预置或管理基础设施。
+1. Serverless Architecture: Athena is a serverless service, meaning that you don't have to provision and manage any underlying infrastructure. It automatically scales resources based on the size and complexity of your queries.  
+    无服务器架构：Athena 是一项无服务器服务，这意味着您不必预置和管理任何底层基础设施。它根据查询的大小和复杂性自动缩放资源。
+    
+2. Analytics on S3 Data: Athena enables you to query data directly from Amazon S3. It supports various data formats like CSV, JSON, Parquet, and ORC. You can analyze structured, semi-structured, and unstructured datasets residing in S3 without the need for data ingestion into a separate database.  
+    对 S3 数据的分析：Athena 使您能够直接从 Amazon S3 查询数据。它支持各种数据格式，如CSV，JSON，Parquet和ORC。您可以分析驻留在 S3 中的结构化、半结构化和非结构化数据集，而无需将数据摄取到单独的数据库中。
+    
+3. Standard SQL Queries: Athena provides compatibility with standard SQL, specifically Presto, allowing you to write SQL queries to analyze data. You can perform aggregations, filtering, joins, and advanced analytics operations on your data using familiar SQL syntax.  
+    标准SQL查询：Athena提供与标准SQL的兼容性，特别是Presto，允许您编写SQL查询来分析数据。您可以使用熟悉的 SQL 语法对数据执行聚合、筛选、联接和高级分析操作。
+
+Use Cases for Amazon Athena:  
+Amazon Athena 的使用案例：
+
+- Ad-hoc querying and interactive analysis of large datasets stored in Amazon S3.  
+    对存储在 Amazon S3 中的大型数据集进行即席查询和交互式分析。
+- Data exploration and discovery, especially for unstructured or semi-structured data.  
+    数据探索和发现，尤其是非结构化或半结构化数据。
+- Log analysis, including processing and querying of logs stored in S3 buckets.  
+    日志分析，包括处理和查询存储在 S3 存储桶中的日志。
+- Extracting insights from clickstream data, user activity logs, and IoT data.  
+    从点击流数据、用户活动日志和 IoT 数据中提取见解。
+- Building data pipelines integrating with other AWS services for analytics and reporting.  
+    构建与其他 AWS 服务集成的数据管道，以进行分析和报告。
+
+## Redshift
+Amazon Redshift is a fully managed, petabyte-scale data warehousing service provided by AWS. It is designed for analyzing large volumes of data with high performance and cost-effectiveness. Redshift utilizes columnar storage and massively parallel processing (MPP) architecture to deliver fast query execution and scalability.  
+Amazon Redshift 是由 AWS 提供的一项完全托管的 PB 级数据仓库服务。它旨在以高性能和成本效益分析大量数据。Redshift 利用列式存储和大规模并行处理 （MPP） 架构来提供快速查询执行和可扩展性。
+1. Columnar Storage: Redshift stores data in columnar format, which offers advantages for analytical workloads. Columnar storage allows for efficient compression, as it stores data of the same column together, reducing I/O and improving query performance.  
+    列式存储：Redshift 以列式格式存储数据，这为分析工作负载提供了优势。列式存储允许高效压缩，因为它将同一列的数据存储在一起，从而减少 I/O 并提高查询性能。
+    
+2. Massively Parallel Processing (MPP): Redshift divides the data and query workload into smaller parts called slices and distributes them across multiple nodes in a cluster. This parallel processing architecture enables fast execution of complex queries by leveraging the full computing power of the cluster.  
+    大规模并行处理 （MPP）：Redshift 将数据和查询工作负载划分为称为切片的较小部分，并将它们分布在集群中的多个节点上。这种并行处理架构通过利用集群的全部计算能力，可以快速执行复杂的查询。
+    
+3. Scaling and Performance: Redshift allows you to scale the cluster by adding or removing nodes based on your needs. Scaling can be done with zero downtime. By adding more nodes, you can increase storage capacity and compute power, enhancing query performance as the cluster grows.  
+    扩展和性能：Redshift 允许您根据需要添加或删除节点来扩展集群。可以在零停机时间的情况下完成扩展。通过添加更多节点，您可以增加存储容量和计算能力，从而随着集群的增长提高查询性能。
+
+Use Cases for Amazon Redshift:  
+Amazon Redshift 的使用案例：
+
+- Business intelligence (BI) and reporting: Redshift can handle complex queries and large volumes of data, making it suitable for BI and reporting use cases.  
+    商业智能 （BI） 和报告：Redshift 可以处理复杂的查询和大量数据，使其适用于 BI 和报告用例。
+- Data warehousing and analytics: Redshift is built for high-performance analytics, enabling ad-hoc analysis, data exploration, and running complex analytical queries.  
+    数据仓库和分析：Redshift 专为高性能分析而构建，支持即席分析、数据探索和运行复杂的分析查询。
+- Data consolidation: Redshift allows you to consolidate data from multiple sources, such as transactional databases, logs, and IoT devices, into a single data warehouse for unified analysis.  
+    数据整合： Redshift 允许您将来自多个来源（例如事务数据库、日志和 IoT 设备）的数据整合到单个数据仓库中以进行统一分析。
+- Data archiving and historical analysis: With its columnar storage and compression capabilities, Redshift can efficiently store and analyze historical data for long-term analysis and regulatory compliance.  
+    数据归档和历史分析：凭借其列式存储和压缩功能，Redshift 可以有效地存储和分析历史数据，以实现长期分析和法规遵从性。
+
+![](img/saa_c03-20230814.png)
+Data Transformation: In this step, raw data is transformed into a structured or processed format suitable for analytics or other downstream processes. This process involves activities like cleaning and validating the data, aggregating or summarizing it, performing schema mapping, or adding additional computed columns. Tools like Apache Spark, Python, or SQL can be used for data transformation.
+数据转换：在此步骤中，原始数据被转换为适合分析或其他下游流程的结构化或处理格式。此过程涉及清理和验证数据、聚合或汇总数据、执行架构映射或添加其他计算列等活动。Apache Spark，Python或SQL等工具可用于数据转换。
+
+Data Integration: When multiple data sources are involved, integration is necessary to unify data from different origins. This step can involve data consolidation, merging datasets, resolving conflicts, or handling data from different formats or schemas. Integration tools or frameworks, such as Apache Kafka, AWS Glue, or custom ETL (Extract-Transform-Load) pipelines, can handle this process.
+数据集成：当涉及多个数据源时，需要集成以统一来自不同来源的数据。此步骤可能涉及数据合并、合并数据集、解决冲突或处理来自不同格式或架构的数据。集成工具或框架（如 Apache Kafka、AWS Glue 或自定义 ETL（提取-转换-加载）管道）可以处理此过程。
+
+Data Analysis and Processing: Once data is prepared and integrated, it can be processed for various analytical purposes or specific business requirements. This step can include running complex SQL queries, data mining, applying machine learning algorithms, generating reports, or building visualizations. Tools like SQL-based querying engines (e.g., Amazon Redshift, Apache Hive), programming languages (e.g., Python, R), or business intelligence platforms can be used for analysis and processing.
+数据分析和处理：一旦数据被准备和集成，就可以出于各种分析目的或特定的业务需求进行处理。此步骤可以包括运行复杂的 SQL 查询、数据挖掘、应用机器学习算法、生成报表或生成可视化效果。基于 SQL 的查询引擎（例如 Amazon Redshift、Apache Hive）、编程语言（例如 Python、R）或商业智能平台等工具可用于分析和处理。
+
