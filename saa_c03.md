@@ -4,7 +4,7 @@
 [AWS-Certified-Solutions-Architect-Associate\_Exam-Guide.pdf](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf)  
 [AWS-Certified-Solutions-Architect-Associate\_Sample-Questions.pdf](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Sample-Questions.pdf)  
 [GitHub - GreenH47/AWS\_certified: AWS certified exam preparation](https://github.com/GreenH47/AWS_certified)  
-
+[AWS Certified Solutions Architect Associate Exam - SAA-C03 Study Path](https://tutorialsdojo.com/aws-certified-solutions-architect-associate-saa-c03/)  
 # Exam Guide 
 [AWS-Certified-Solutions-Architect-Associate\_Exam-Guide.pdf](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf)  
 There are two types of questions on the exam:  
@@ -126,6 +126,7 @@ The main function of AWS EFS is to provide a fully managed and scalable file sys
 |Use Cases 使用案例|Object storage, data archiving, backups, data lakes  <br>对象存储、数据归档、备份、数据湖|Shared file system, content management, web serving  <br>共享文件系统、内容管理、Web 服务|
 ## efs vs ebs vs s3
 [Amazon S3 vs EBS vs EFS](https://tutorialsdojo.com/amazon-s3-vs-ebs-vs-efs/)  
+![](img/saa_c03-20230818-1.png)
 # Scalability & High Availability
 ## Scalability
 Scalability in AWS refers to the ability of a system or application to handle an increasing workload by adding or removing resources as needed. AWS provides various services and features that enable organizations to scale their infrastructure and applications as their demand grows.  
@@ -172,6 +173,9 @@ Network load balancers (Layer 4) allow to:  • Forward TCP & UDP traffic to you
 ## GWLB - Gateway Load Balancer
 Gateway Load Balancer is designed to provide scalable and highly available load balancing for network traffic at the edge of your AWS infrastructure. It is primarily focused on load balancing traffic between your virtual appliances (e.g., firewalls, intrusion detection systems, and other security devices) and your VPC (Virtual Private Cloud) resources.  
 网关负载均衡器旨在为 AWS 基础设施边缘的网络流量提供可扩展且高度可用的负载均衡。它主要侧重于虚拟设备（例如防火墙、入侵检测系统和其他安全设备）与 VPC（虚拟私有云）资源之间的流量负载平衡。 
+
+## Load balancer compare
+![](img/saa_c03-20230818-2.png)
 ## Sticky Sessions
 Sticky sessions, also known as session affinity or session persistence, is a feature provided by load balancers in AWS to ensure that subsequent requests from a client are directed to the same backend server or instance that served the initial request. It allows the load balancer to maintain a consistent session between the client and the backend server.  
 粘性会话（也称为会话亲和性或会话持久性）是 AWS 中的负载均衡器提供的一项功能，用于确保来自客户端的后续请求定向到为初始请求提供服务的同一后端服务器或实例。它允许负载均衡器在客户端和后端服务器之间保持一致的会话  
@@ -203,6 +207,7 @@ Amazon RDS Auto Scaling 的工作原理是监控 RDS 实例的性能指标，例
 Read Replicas: Apart from Multi-AZ deployments, RDS also supports creating Read Replicas. Read Replicas are additional instances that replicate data from the primary database in an asynchronous manner. Read Replicas can be created in different AZs to distribute read traffic and improve performance. However, note that Read Replicas are not automatically promoted to a primary database in case of a failure like Multi-AZ deployments.
 只读副本：除了多可用区部署外，RDS 还支持创建只读副本。只读副本是以异步方式从主数据库复制数据的附加实例。可以在不同的可用区中创建只读副本，以分配读取流量并提高性能。但是，请注意，如果发生多可用区部署等故障，只读副本不会自动提升为主数据库。
 ![](img/saa_c03-20230724.png)
+![](img/saa_c03-20230817-1.png)
 ## From Single-AZ to Multi-AZ
 Create a new Multi-AZ RDS instance: From the Amazon RDS console, choose "Launch DB instance". Select the desired database engine, version, and instance specifications. In the "Multi-AZ deployment" section, choose the option to enable Multi-AZ. Configure other settings as per your requirements and launch the new Multi-AZ instance.
 创建新的多可用区 RDS 实例：从 Amazon RDS 控制台中选择“启动数据库实例”。选择所需的数据库引擎、版本和实例规格。在“多可用区部署”部分中，选择启用多可用区的选项。根据您的要求配置其他设置并启动新的多可用区实例
@@ -375,6 +380,27 @@ In AWS VPC (Virtual Private Cloud), both NAT Gateway and NAT Instance serve simi
 |Complexity 复杂性|Simple setup and management  <br>简单的设置和管理|More customization and management required  <br>需要更多自定义和管理|
 |Suitable for 适用于|Most scenarios, high availability and scalability  <br>大多数方案，高可用性和可伸缩性|Advanced networking configurations, fine-grained control and customization  <br>高级网络配置、精细控制和定制|
 
+##  difference of NAT gateway and internet gateway
+
+|Feature 特征|NAT Gateway NAT 网关|Internet Gateway 互联网网关|
+|---|---|---|
+|Purpose 目的|Provides outbound access 提供出站访问|Enables inbound and outbound  <br>启用入站和出站|
+||for instances in private 例如在私人|access between VPC and the  <br>VPC 和|
+||subnets 子网|internet 互联网|
+|Traffic Direction 交通方向|Outbound 出境|Inbound and Outbound 入站和出站|
+|Network Address 网络地址|Performs network address 执行网络地址|Maps public IP addresses to  <br>将公共 IP 地址映射到|
+|Translation 译本|translation (NAT) for 翻译 （NAT）|private IP addresses in the  <br>专用 IP 地址|
+||instances in private 私有实例|VPC|
+||subnets 子网||
+|Accessiblity 可访问性|Instances within private 私有实例|Public IP addresses in the  <br>公共 IP 地址在|
+||subnet can access the 子网可以访问|VPC resources can be directly  <br>专有网络资源可以直接|
+||internet 互联网|accessed from the internet  <br>从互联网访问|
+|Security 安全|Instances in a private 私有实例|Provides an additional layer  <br>提供附加层|
+||subnet are not directly 子网不是直接的|of security by blocking 通过阻止实现安全性|
+||accessible from the 可从|inbound connections from the  <br>来自|
+||internet 互联网|internet 互联网|
+
+
 # Data
 ## Amazon Redshift
 Amazon Redshift is a fully managed, petabyte-scale data warehousing service provided by Amazon Web Services (AWS). It is designed to handle large-scale data analytics workloads and allows businesses to analyze vast amounts of structured and semi-structured data efficiently.  
@@ -423,6 +449,7 @@ In this specific example, the policy allows public read access to objects in the
 
 ## S3 Storage Classes Comparison
 ![](img/saa_c03-20230807.png)
+![](img/saa_c03-20230817.png)
 ## Lifecycle Rules
 + Transition Actions – configure objects to transition to another storage class 转换操作 – 配置对象以转换到另一个存储类别  
 + Expiration actions – configure objects to expire (delete) after some time 过期操作 – 配置对象在一段时间后过期（删除） 
@@ -581,6 +608,7 @@ AWS SQS 是一种完全托管的消息队列服务，使您能够分离和扩展
 
 ##  Key Differences between AWS SNS and AWS SQS
 ![](img/saa_c03-20230808-4.png)
+![](img/saa_c03-20230818.png)
 
 |Key Differences 主要区别|AWS SNS |AWS SQS |
 |---|---|---|
@@ -864,3 +892,70 @@ Data Integration: When multiple data sources are involved, integration is necess
 Data Analysis and Processing: Once data is prepared and integrated, it can be processed for various analytical purposes or specific business requirements. This step can include running complex SQL queries, data mining, applying machine learning algorithms, generating reports, or building visualizations. Tools like SQL-based querying engines (e.g., Amazon Redshift, Apache Hive), programming languages (e.g., Python, R), or business intelligence platforms can be used for analysis and processing.
 数据分析和处理：一旦数据被准备和集成，就可以出于各种分析目的或特定的业务需求进行处理。此步骤可以包括运行复杂的 SQL 查询、数据挖掘、应用机器学习算法、生成报表或生成可视化效果。基于 SQL 的查询引擎（例如 Amazon Redshift、Apache Hive）、编程语言（例如 Python、R）或商业智能平台等工具可用于分析和处理。
 
+## AWS Glue
+Certainly! AWS Glue is a fully managed extract, transform, and load (ETL) service that makes it easy to prepare and load data for analytics. It provides capabilities for discovering, cataloging, and transforming your data, making it ready for analysis and querying.  
+当然！AWS Glue 是一项完全托管的提取、转换和加载 （ETL） 服务，可让您轻松准备和加载用于分析的数据。它提供了用于发现、编目和转换数据的功能，使其可供分析和查询   
+![](img/saa_c03-20230815.png)  
+![](img/saa_c03-20230815-1.png)  
+
+1. Data Catalog: AWS Glue's central component is the Data Catalog, which acts as a metadata repository for all your data assets. It stores metadata about tables, databases, schemas, and connections. The Data Catalog makes it easy to discover and understand your data assets, enabling you to build data-driven applications more efficiently.  
+    数据目录：AWS Glue 的核心组件是数据目录，它充当所有数据资产的元数据存储库。它存储有关表、数据库、架构和连接的元数据。通过数据目录，可以轻松发现和了解数据资产，从而更有效地构建数据驱动的应用程序。
+    
+2. Crawlers: AWS Glue offers automated crawlers that scan your data sources — such as Amazon S3 buckets, RDS databases, or data lakes — and infer the schema and structure of the data. Crawlers automatically discover new data and update the Data Catalog's metadata accordingly, saving you from manual intervention.  
+    爬网程序：AWS Glue 提供自动爬网程序，可扫描您的数据源（例如 Amazon S3 存储桶、RDS 数据库或数据湖）并推断数据的架构和结构。爬网程序会自动发现新数据并相应地更新数据目录的元数据，从而避免手动干预。
+    
+3. Data Preparation and ETL: AWS Glue provides a visual interface for creating data preparation and ETL workflows. Using the Glue DataBrew visual data preparation tool or Apache Spark-based Glue ETL jobs, you can transform and clean your data, converting it into formats suitable for analytics or processing. Glue jobs are scalable and serverless, allowing you to handle large volumes of data efficiently.  
+    数据准备和 ETL：AWS Glue 提供了一个可视化界面，用于创建数据准备和 ETL 工作流。使用 Glue DataBrew 可视化数据准备工具或基于 Apache Spark 的 Glue ETL 作业，您可以转换和清理数据，将其转换为适合分析或处理的格式。粘附作业是可扩展且无服务器的，使您能够有效地处理大量数据。
+    
+4. Data Lake Integration: AWS Glue integrates well with data lakes, such as Amazon S3, providing native data lake ingestion and management capabilities. You can define data lake blueprints to automatically generate a set of orchestrated Glue workflows for data lake ingestion, discovery, and transformation.  
+    数据湖集成：AWS Glue 与 Amazon S3 等数据湖很好地集成，提供本机数据湖摄取和管理功能。您可以定义数据湖蓝图，以自动生成一组编排的 Glue 工作流，用于数据湖的摄取、发现和转换
+
+## common architecture for processing streaming data flow
+1. Kinesis Data Stream: Set up an Amazon Kinesis Data Stream as the source for your streaming data. This is where your streaming data is ingested and stored.  
+    Kinesis Data Stream：设置 Amazon Kinesis Data Stream 作为流数据的源。这是引入和存储流数据的位置。
+    
+2. AWS Glue Streaming Job: Create an AWS Glue streaming job that reads data from the Kinesis Data Stream. AWS Glue streaming jobs use Apache Spark for processing and transformation. You can define the transformations you need on the streaming data, such as filtering, aggregating, or enriching it.  
+    AWS Glue Streaming Job：创建一个从 Kinesis Data Stream 读取数据的 AWS Glue 流式处理任务。AWS Glue 流式处理作业使用 Apache Spark 进行处理和转换。您可以定义流数据所需的转换，例如筛选、聚合或丰富流数据。
+    
+3. Processing and Transformation: As the streaming data flows into the Kinesis Data Stream, the AWS Glue streaming job continuously reads and processes the data based on the transformation logic defined in your job. The transformed data is then sent to the destination of your choice.  
+    处理和转换：当流数据流流入 Kinesis Data Stream 时，AWS Glue 流式处理任务会根据任务中定义的转换逻辑持续读取和处理数据。然后将转换后的数据发送到您选择的目标。
+    
+4. Destination: You can configure the AWS Glue streaming job to send the transformed data to various destinations, depending on your use case. In your scenario, you can configure it to send the transformed data to Amazon Redshift.  
+    目标：您可以配置 AWS Glue 流式处理任务，以将转换后的数据发送到不同的目标，具体取决于您的使用案例。在您的场景中，您可以将其配置为将转换后的数据发送到 Amazon Redshift。
+    
+5. Amazon Redshift: Once the transformed streaming data is sent to Amazon Redshift, you can perform analytics and analysis on the data using SQL queries. Amazon Redshift is a fully-managed data warehouse solution designed for analyzing large datasets. It enables you to run complex analytics queries efficiently at scale.  
+    Amazon Redshift：将转换后的流数据发送到 Amazon Redshift 后，您可以使用 SQL 查询对数据执行分析和分析。Amazon Redshift 是一种完全托管的数据仓库解决方案，专为分析大型数据集而设计。它使您能够大规模高效地运行复杂的分析查询。
+
+# AWS Security & Encryption
+## AWS KMS (Key Management Service)
+AWS Key Management Service (KMS) is a fully managed service that helps you create and control the encryption keys used to encrypt your data across various AWS services and in your own applications. It provides a secure and scalable way to centrally manage encryption keys, making it easier to meet compliance requirements and protect sensitive data.  
+AWS 密钥管理服务 （KMS） 是一项完全托管的服务，可帮助您创建和控制用于跨各种 AWS 服务和您自己的应用程序加密数据的加密密钥。它提供了一种安全且可扩展的方式来集中管理加密密钥，从而更轻松地满足合规性要求并保护敏感数据。
+1. Key Generation and Management: AWS KMS allows you to generate and manage encryption keys in a secure and scalable manner. It provides both symmetric and asymmetric key types. With symmetric keys, you can encrypt and decrypt data using the same key. Asymmetric keys involve a key pair: a public key for encryption and a private key for decryption.  
+    密钥生成和管理：AWS KMS 允许您以安全且可扩展的方式生成和管理加密密钥。它提供对称和非对称密钥类型。使用对称密钥，可以使用相同的密钥加密和解密数据。非对称密钥涉及密钥对：用于加密的公钥和用于解密的私钥。
+1. Key Policies and Fine-Grained Access Control: AWS KMS allows you to define key policies and access control policies that specify who can use and manage your keys. You can set permissions based on IAM users, roles, groups, or specific AWS accounts. This gives you full control over who can access and use your keys.  
+    密钥策略和精细访问控制：AWS KMS 允许您定义密钥策略和访问控制策略，以指定谁可以使用和管理您的密钥。您可以根据 IAM 用户、角色、组或特定 AWS 账户设置权限。这使您可以完全控制谁可以访问和使用您的密钥。
+    
+2. Key Rotation: AWS KMS supports automatic key rotation, allowing you to rotate your keys periodically without impacting your applications or services. Key rotation helps enhance security by regularly changing the encryption keys used for data encryption.  
+    密钥轮换：AWS KMS 支持自动密钥轮换，允许您定期轮换密钥，而不会影响您的应用程序或服务。密钥轮换通过定期更改用于数据加密的加密密钥来帮助增强安全性。
+
+## AWS Secrets Manager
+AWS Secrets Manager is a fully managed service that enables you to securely store and manage secrets, such as API keys, database credentials, and passwords. It provides a central repository for storing and retrieving sensitive information, making it easier to manage secrets across your AWS infrastructure and applications.  
+AWS Secrets Manager 是一项完全托管的服务，使您能够安全地存储和管理密钥，例如 API 密钥、数据库凭证和密码。它提供了一个用于存储和检索敏感信息的中央存储库，使您可以更轻松地跨 AWS 基础设施和应用程序管理密钥。
+
+## differences and use cases for AWS Key Management Service (KMS) and AWS Secrets Manager
+
+|Features 特征|AWS Key Management Service (KMS)  <br>AWS Key Management Service （KMS）|AWS Secrets Manager AWS 密钥管理器|
+|---|---|---|
+|Key Management 密钥管理|Centralized management of encryption keys for data encryption and decryption.  <br>集中管理用于数据加密和解密的加密密钥。|N/A|
+|Secret Management 机密管理|N/A|Centralized storage and management of secrets, such as API keys and database credentials.  <br>集中存储和管理机密，例如 API 密钥和数据库凭据。|
+|Encryption 加密|Encrypts data with managed keys stored in KMS.  <br>使用存储在 KMS 中的托管密钥加密数据。|Encrypts secrets at rest using KMS.  <br>使用 KMS 加密静态密钥。|
+|Access Control 存取控制|IAM policies manage key access and usage.  <br>IAM 策略管理密钥访问和使用。|IAM policies control secrets access.  <br>IAM 策略控制密钥访问。|
+|Secret Rotation 机密轮换|Manual rotation of customer-managed keys and not secret-specific.  <br>手动轮换客户管理的密钥，而不是特定于机密的密钥。|Automated rotation of secrets, such as database credentials.  <br>自动轮换机密，例如数据库凭据。|
+|Integration 集成|Used for encryption across various AWS services.  <br>用于跨各种 AWS 服务进行加密。|Integrates with applications and services for retrieving secrets.  <br>与用于检索机密的应用程序和服务集成。|
+|Auditing & Logs 审计和日志|CloudTrail provides logs on KMS usage and key operations.  <br>云尾提供KMS使用情况和密钥操作的日志。|CloudTrail offers logs on secret-related actions.  <br>CloudTrail 提供有关机密相关操作的日志。|
+|Pricing 定价|Pay for KMS key usage.  <br>支付 KMS 密钥使用费。|Pay for secrets storage and secret rotation.  <br>支付机密存储和机密轮换费用。|
+|Use Cases 使用案例|- Encrypting data at rest and in transit.<br>- Compliance and data protection requirements.  <br>- 加密静态和传输中的数据。  <br>- 合规性和数据保护要求。|- Securing API keys, database passwords, and other credentials.<br>- Secrets rotation and management.<br>- Integration with AWS services and applications.  <br>- 保护 API 密钥、数据库密码和其他凭据。  <br>- 机密轮换和管理。  <br>- 与 AWS 服务和应用程序集成。|
+
+## AWS Certificate Manager (ACM)
+AWS Certificate Manager (ACM) is a managed service provided by Amazon Web Services that makes it easy to provision, manage, and deploy SSL/TLS certificates for use with AWS services and your applications running on AWS resources.  
+AWS 证书管理器 （ACM） 是由 亚马逊云科技提供的一项托管服务，可让您轻松预置、管理和部署 SSL/TLS 证书，以便与 AWS 服务和在 AWS 资源上运行的应用程序一起使用。
